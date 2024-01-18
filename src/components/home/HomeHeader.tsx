@@ -1,7 +1,8 @@
 export default function HomeHeader() {
   return (
-    <div className="home-header bg-blue-500 text-white p-5 text-center">
-      <h1 className="text-4xl">Home</h1>
+    <div className="bg-white dark:bg-black text-black dark:text-white">
+      <h1 className="text-4xl font-bold">Next.js 블로그</h1>
+      <p className="text-xl">블로그 글 목록을 확인하세요.</p>
     </div>
   );
 }
