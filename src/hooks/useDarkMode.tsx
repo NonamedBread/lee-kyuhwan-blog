@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 
-const useDarkmode = (): boolean => {
+const useDarkmode = (): [boolean, () => void] => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   useEffect(() => {
     // Check if user has a preference for dark mode
@@ -23,7 +27,7 @@ const useDarkmode = (): boolean => {
     };
   }, []);
 
-  return isDarkMode;
+  return [isDarkMode, toggleDarkMode];
 };
 
 export default useDarkmode;
