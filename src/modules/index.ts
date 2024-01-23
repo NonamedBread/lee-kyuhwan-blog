@@ -1,12 +1,18 @@
-import { createStore, applyMiddleware, combineReducers } from "redux";
-import { HYDRATE, createWrapper } from "next-redux-wrapper";
+import { combineReducers } from "redux";
+import { HYDRATE } from "next-redux-wrapper";
 import darkModeReducer from "./darkMode";
 
-const rootReducer = combineReducers({
-  darkMode: darkModeReducer.reducer,
-});
-
-// https://velog.io/@carrot/Next.js-Redux
-// https://github.com/velopert/velog-client/blob/master/src/index.tsx
+const rootReducer = (state: any, action: any) => {
+  switch (action.type) {
+    case HYDRATE:
+      return action.payload;
+    default: {
+      const combinedReducer = combineReducers({
+        darkMode: darkModeReducer.reducer,
+      });
+      return combinedReducer(state, action);
+    }
+  }
+};
 
 export default rootReducer;
