@@ -9,7 +9,7 @@ export default function HomeHeader() {
         darkMode ? "dark:bg-black text-black dark:text-white" : ""
       } flex justify-between items-center p-4`}
     >
-      <h1 className="text-4xl font-bold">Next.js 블로그</h1>
+      <h1 className="text-4xl font-bold">Next.js Typescript Tailwind</h1>
       <div>
         <button
           onClick={toggleDarkMode}
