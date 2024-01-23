@@ -1,7 +1,6 @@
 import Link from "next/link";
 
-//redux
-import { Provider } from "react-redux";
+import { wrapper } from "@/modules/store";
 
 import HomeHeader from "@/components/home/HomeHeader";
 
@@ -11,7 +10,7 @@ const posts = [
   // 실제 애플리케이션에서는 API 호출 등을 통해 데이터를 가져옵니다.
 ];
 
-export default function Home() {
+function Home() {
   return (
     <div>
       <HomeHeader />
@@ -25,3 +24,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default wrapper.withRedux(Home);
