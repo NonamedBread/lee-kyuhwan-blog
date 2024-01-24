@@ -10,6 +10,10 @@ const makeStore = () =>
     devTools: true,
   });
 
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];
+
 // createWrapper 함수를 사용하여 wrapper를 생성합니다.
 const wrapper = createWrapper(makeStore, { debug: true });
 
