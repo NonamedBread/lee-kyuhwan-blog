@@ -4,7 +4,6 @@ interface Props {
 }
 
 export default function HomeHeader({ theme, toggleTheme }: Props) {
-  console.log("theme", theme);
   return (
     <div
       className={`${
