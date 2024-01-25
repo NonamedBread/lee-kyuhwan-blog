@@ -1,18 +1,9 @@
-import { useSelector, useDispatch } from "react-redux";
-import darkMode from "@/modules/darkMode";
+interface Props {
+  theme: string;
+  toggleTheme: () => void;
+}
 
-export default function HomeHeader() {
-  const theme = useSelector((state: any) => state.darkMode.theme);
-  const dispatch = useDispatch(); // useDispatch 훅을 사용하여 dispatch 함수를 가져옵니다.
-
-  const toggleTheme = () => {
-    if (theme === "dark") {
-      dispatch(darkMode.actions.enableLightMode()); // 테마가 'dark'이면 'light' 모드로 전환합니다.
-    } else {
-      dispatch(darkMode.actions.enableDarkMode()); // 그렇지 않으면 'dark' 모드로 전환합니다.
-    }
-  };
-
+export default function HomeHeader({ theme, toggleTheme }: Props) {
   return (
     <div
       className={`bg-white ${
