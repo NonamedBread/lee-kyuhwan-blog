@@ -4,10 +4,11 @@ interface Props {
 }
 
 export default function HomeHeader({ theme, toggleTheme }: Props) {
+  console.log("theme", theme);
   return (
     <div
-      className={`bg-white ${
-        theme === "dark" ? "dark:bg-black text-black dark:text-white" : ""
+      className={`${
+        theme === "dark" ? "bg-gray-800 text-yellow-500 " : "bg-white"
       } flex justify-between items-center p-4`}
     >
       <h1 className="text-4xl font-bold">Next.js Typescript Tailwind</h1>
