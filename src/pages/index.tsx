@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 
 import darkMode from "@/modules/darkMode";
 import HomeHeader from "@/components/home/HomeHeader";
+import storage from "@/lib/storage";
 
 const posts = [
   { id: "1", title: "첫 번째 포스트", summary: "이것은 첫 번째 포스트입니다." },
@@ -11,16 +13,31 @@ const posts = [
 ];
 
 export default function Home() {
-  const theme = useSelector((state: any) => state.darkMode.theme);
-  const dispatch = useDispatch(); // useDispatch 훅을 사용하여 dispatch 함수를 가져옵니다.
+  let theme = useSelector((state: any) => state.darkMode.theme);
+  const dispatch = useDispatch();
+
+  const loadTheme = () => {
+    const loadTheme = storage.getItem("theme");
+    if (!loadTheme) return;
+    if (loadTheme === "dark") {
+      dispatch(darkMode.actions.enableDarkMode());
+    } else {
+      dispatch(darkMode.actions.enableLightMode());
+    }
+    theme = loadTheme;
+  };
 
   const toggleTheme = () => {
     if (theme === "dark") {
-      dispatch(darkMode.actions.enableLightMode()); // 테마가 'dark'이면 'light' 모드로 전환합니다.
+      dispatch(darkMode.actions.enableLightMode());
     } else {
-      dispatch(darkMode.actions.enableDarkMode()); // 그렇지 않으면 'dark' 모드로 전환합니다.
+      dispatch(darkMode.actions.enableDarkMode());
     }
   };
+
+  useEffect(() => {
+    loadTheme();
+  }, []);
   return (
     <div>
       <HomeHeader theme={theme} toggleTheme={toggleTheme} />
