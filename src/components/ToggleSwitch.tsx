@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
-
+import NightsStayIcon from "@mui/icons-material/NightsStay";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
 interface ToggleSwitchProps {
   theme: string;
   toggleTheme: () => void;
@@ -32,16 +32,12 @@ function ToggleSwitch({ theme, toggleTheme }: ToggleSwitchProps) {
           }`}
         >
           {theme === "dark" ? (
-            <MoonIcon className="h-8 w-8 text-gray-500" />
+            <NightsStayIcon className="h-8 w-8 text-slate-100" />
           ) : (
-            <SunIcon className="h-8 w-8 text-yellow-500" />
+            <WbSunnyIcon className="h-8 w-8 text-yellow-500" />
           )}
         </span>
       </label>
-      <a
-        href="https://dribbble.com/shots/14199649-Dark-Light-Mode-Toggle-Switch-Pattern-A11y"
-        className="font-semibold text-gray-600 hover:text-green-600"
-      ></a>
     </div>
   );
 }
