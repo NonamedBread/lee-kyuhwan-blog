@@ -5,8 +5,20 @@ export type DarkModeState = {
   systemTheme: "dark" | "light" | "not-ready";
 };
 
+const getInitialTheme = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.theme === "dark"
+      ? "dark"
+      : !("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+  return "light";
+};
+
 const initialState: DarkModeState = {
-  theme: "default",
+  theme: getInitialTheme(),
   systemTheme: "not-ready",
 };
 
