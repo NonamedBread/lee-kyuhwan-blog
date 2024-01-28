@@ -1,33 +1,40 @@
 import ToggleSwitch from "../ToggleSwitch";
+import { useMemo } from "react";
+
+import NightsStayIcon from "@mui/icons-material/NightsStay";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
 
 interface Props {
-  theme: string;
   toggleTheme: () => void;
+  theme: string;
 }
 
-export default function HomeHeader({ theme, toggleTheme }: Props) {
+const icons = {
+  checked: NightsStayIcon,
+  unChecked: WbSunnyIcon,
+};
+
+export default function HomeHeader({ toggleTheme, theme }: Props) {
+  const checked = useMemo(() => (theme === "dark" ? true : false), [theme]);
+
   return (
     <div
-      className={`flex justify-between items-center py-4 px-8 ${
-        theme === "dark"
-          ? "text-slate-100 bg-gray-700"
-          : "text-gray-700 bg-slate-100"
-      }`}
+      className={`flex justify-between items-center py-4 px-8 text-gray-700 bg-slate-100 dark:text-slate-100 dark:bg-gray-700`}
     >
       <h1 className="text-4xl font-bold">Next.js Typescript Tailwind</h1>
       <div className="flex gap-4">
-        <ToggleSwitch theme= {theme} toggleTheme={toggleTheme} />
+        <ToggleSwitch
+          toggleAction={toggleTheme}
+          icons={icons}
+          checked={checked}
+        />
         <input
           type="text"
           placeholder="검색"
           className="border py-2 px-4 rounded mr-2"
         />
         <button
-          className={`border py-2 px-4 rounded mr-2 ${
-            theme === "dark"
-              ? "text-slate-100 bg-gray-700 border-gray-200 "
-              : "text-gray-700 bg-slate-100 border-gray-600 "
-          }`}
+          className={`border py-2 px-4 rounded mr-2 text-gray-700 bg-slate-100 border-gray-600 dark:text-slate-100 dark:bg-gray-700 dark:border-gray-200`}
         >
           Login
         </button>
