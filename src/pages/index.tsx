@@ -1,5 +1,7 @@
 import { GetStaticProps } from "next";
 
+import Posts from "@/components/Posts";
+
 interface Props {
   posts: {
     userId: number;
@@ -10,10 +12,9 @@ interface Props {
 }
 
 export default function Home({ posts }: Props) {
-  console.log(posts);
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-red-100">
-      <h1 className="text-6xl font-bold">Posts</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <Posts posts={posts} />
     </div>
   );
 }
