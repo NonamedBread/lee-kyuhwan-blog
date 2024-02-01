@@ -10,11 +10,10 @@ interface Post {
 export default function Posts({ posts }: { posts: Post[] }) {
   let today = new Date();
   let dd = String(today.getDate()).padStart(2, "0");
-  let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  let mm = String(today.getMonth() + 1).padStart(2, "0");
   let yyyy = today.getFullYear();
 
   let formattedDate = yyyy + "년 " + mm + "월 " + dd + "일";
-  console.log(formattedDate);
   return (
     <div className="flex flex-wrap min-h-screen py-2 ">
       {posts.map((post) => (
@@ -25,10 +24,12 @@ export default function Posts({ posts }: { posts: Post[] }) {
           <div className="h-full rounded shadow overflow-auto bg-white dark:bg-gray-900">
             <div className="relative h-2/5 rounded">
               <Image
+                className=" object-cover"
                 src="/images/dummy_image.png"
-                layout="fill"
-                objectFit="cover"
+                fill
+                priority
                 alt={post.title}
+                sizes="100%"
               />
             </div>
             <div className="w-full h-3/5 p-4 ">
