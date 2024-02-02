@@ -21,7 +21,7 @@ export default function Posts({ posts }: { posts: Post[] }) {
           key={post.id}
           className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 h-[45dvh] p-4 "
         >
-          <div className="h-full rounded shadow overflow-auto bg-white dark:bg-gray-900">
+          <div className="h-full rounded shadow overflow-auto bg-white dark:bg-customGreay-800">
             <div className="relative h-2/5 rounded">
               <Image
                 className=" object-cover"

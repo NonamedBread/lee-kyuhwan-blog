@@ -21,7 +21,7 @@ export default function Layout({ children }: Props) {
   }, [theme, dispatch]);
   return (
     <>
-      <main className="text-gray-700 bg-slate-100 dark:text-slate-100 dark:bg-gray-700">
+      <main className="text-gray-700 bg-slate-100 dark:text-slate-100 dark:bg-customGreay-900">
         <div className="container mx-auto ">
           <HomeHeader toggleTheme={toggleTheme} theme={theme} />
           {children}
