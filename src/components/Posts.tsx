@@ -15,7 +15,7 @@ export default function Posts({ posts }: { posts: Post[] }) {
 
   let formattedDate = yyyy + "년 " + mm + "월 " + dd + "일";
   return (
-    <div className="flex flex-wrap min-h-screen py-2 ">
+    <div className="flex flex-wrap min-h-screen p-2 rounded-md border border-customGreay-200 dark:border-customGreay-100">
       {posts.map((post) => (
         <div
           key={post.id}
