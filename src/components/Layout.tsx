@@ -1,8 +1,9 @@
 import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import HomeHeader from "@/components/home/HomeHeader";
 import darkMode from "@/modules/darkMode";
+import HomeHeader from "@/components/home/HomeHeader";
+import PostsTaps from "@/components/home/PostsTaps";
 
 interface Props {
   children: React.ReactNode;
@@ -24,6 +25,7 @@ export default function Layout({ children }: Props) {
       <main className="text-gray-700 bg-slate-100 dark:text-slate-100 dark:bg-customGreay-900">
         <div className="container mx-auto ">
           <HomeHeader toggleTheme={toggleTheme} theme={theme} />
+          <PostsTaps />
           {children}
         </div>
       </main>
