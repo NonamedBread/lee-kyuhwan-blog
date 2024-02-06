@@ -22,7 +22,7 @@ export default function Layout({ children }: Props) {
   }, [theme, dispatch]);
   return (
     <>
-      <main className="text-gray-700 bg-slate-100 dark:text-slate-100 dark:bg-customGreay-900">
+      <main className="bg-slate-100 text-gray-700 dark:bg-customGreay-900 dark:text-slate-100">
         <div className="container mx-auto ">
           <HomeHeader toggleTheme={toggleTheme} theme={theme} />
           <PostsTaps />
