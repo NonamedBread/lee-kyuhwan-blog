@@ -19,12 +19,17 @@ const Tap = ({
   return (
     <div
       key={key}
-      className={`text-gray-500 bg-gray-300 w-20 p-0.5 relative group hover:text-gray-800 hover:bg-gray-500 hover:z-10 [clip-path:polygon(17%_5%,_83%_5%,_97%_100%,_3%_100%)] ${index > 0 ? "right-8" : ""}`}
+      className={`
+       text-gray-700 bg-slate-100 w-20 p-0.5 relative group [clip-path:polygon(17%_5%,_83%_5%,_97%_100%,_3%_100%)] ${index > 0 ? "right-8" : ""}
+       group-hover:text-gray-800 bg-slate-300 z-10`}
     >
       <div
-        className="w-full h-full bg-white flex items-center justify-center [clip-path:polygon(17%_5%,_83%_5%,_97%_100%,_3%_100%)]
-            hover:bg-gray-500
-          "
+        className="
+        w-full h-full bg-slate-50 flex items-center justify-center [clip-path:polygon(17%_5%,_83%_5%,_97%_100%,_3%_100%)]
+      group-hover:bg-slate-300 transition-all duration-300 ease-in-out
+        dark:text-slate-100 dark:bg-customGreay-800
+        dark:hover:bg-customGreay-600
+        "
       >
         {name}
       </div>

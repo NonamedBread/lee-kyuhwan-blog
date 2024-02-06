@@ -39,7 +39,7 @@ export default function ToggleSwitch({
           onChange={handleToggle}
         />
         {/* TODO : https://velog.io/@yijaee/serverside-html-matching */}
-        <span className="absolute left-0 inline-block w-12 h-12 rounded-full shadow-lg transform transition-transform duration-300 flex items-center justify-center bg-slate-50 dark:translate-x-full dark:bg-customGreay-600">
+        <span className="absolute left-0 w-12 h-12 rounded-full shadow-lg transform transition-transform duration-300 flex items-center justify-center bg-slate-50 dark:translate-x-full dark:bg-customGreay-600">
           {mounted && (
             <Icon className="h-8 w-8 text-yellow-500 dark:text-slate-100" />
           )}
