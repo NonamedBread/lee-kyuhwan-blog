@@ -27,6 +27,9 @@ const config: Config = {
           900: "#171717",
         },
       },
+      clipPath: {
+        tap: "polygon(17% 5%, 83% 5%, 97% 100%, 3% 100%)",
+      },
     },
   },
   plugins: [],

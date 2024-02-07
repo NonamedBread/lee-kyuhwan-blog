@@ -13,7 +13,7 @@ interface Props {
 
 export default function Home({ posts }: Props) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <Posts posts={posts} />
     </div>
   );

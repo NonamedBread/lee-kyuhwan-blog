@@ -18,7 +18,7 @@ export default function HomeHeader({ toggleTheme, theme }: Props) {
   const checked = useMemo(() => (theme === "dark" ? true : false), [theme]);
 
   return (
-    <div className={`flex justify-between items-center p-5`}>
+    <div className={`flex items-center justify-between py-5`}>
       <h1 className="text-4xl font-bold">Next.js Typescript Tailwind</h1>
       <div className="flex gap-4">
         <ToggleSwitch
@@ -29,10 +29,12 @@ export default function HomeHeader({ toggleTheme, theme }: Props) {
         <input
           type="text"
           placeholder="검색"
-          className="border px-4 py-2  rounded "
+          className="rounded border px-4  py-2 "
         />
         <button
-          className={`border px-4 py-2  rounded border-gray-600 dark:border-gray-200`}
+          className={
+            "rounded border border-customGreay-200  px-4 py-2 dark:border-customGreay-100"
+          }
         >
           Login
         </button>

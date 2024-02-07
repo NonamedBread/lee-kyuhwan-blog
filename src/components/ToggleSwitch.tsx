@@ -29,7 +29,7 @@ export default function ToggleSwitch({
     <div className="flex items-center justify-center">
       <label
         htmlFor="toggle"
-        className="relative w-24 h-12 rounded-full cursor-pointer bg-yellow-500 dark:bg-customGreay-800"
+        className="relative h-12 w-24 cursor-pointer rounded-full bg-yellow-500 dark:bg-customGreay-800"
       >
         <input
           type="checkbox"
@@ -39,7 +39,7 @@ export default function ToggleSwitch({
           onChange={handleToggle}
         />
         {/* TODO : https://velog.io/@yijaee/serverside-html-matching */}
-        <span className="absolute left-0 inline-block w-12 h-12 rounded-full shadow-lg transform transition-transform duration-300 flex items-center justify-center bg-slate-50 dark:translate-x-full dark:bg-customGreay-600">
+        <span className="absolute left-0 flex h-12 w-12 transform items-center justify-center rounded-full bg-slate-50 shadow-lg transition-transform duration-300 dark:translate-x-full dark:bg-customGreay-600">
           {mounted && (
             <Icon className="h-8 w-8 text-yellow-500 dark:text-slate-100" />
           )}
