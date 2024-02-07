@@ -1,6 +1,6 @@
-import { GetStaticProps } from "next";
+import { GetStaticProps } from 'next';
 
-import Posts from "@/components/Posts";
+import Posts from '@/components/posts/Posts';
 
 interface Props {
   posts: {
@@ -21,7 +21,7 @@ export default function Home({ posts }: Props) {
 
 export const getStaticProps: GetStaticProps = async () => {
   // dummy data
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
   const posts = await res.json();
 
   return {
