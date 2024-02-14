@@ -24,7 +24,6 @@ const Tap = ({
 
   return (
     <div
-      key={key}
       className={`
        group relative w-20 bg-slate-100 p-0.5 text-gray-700 [clip-path:polygon(17%_5%,_83%_5%,_97%_100%,_3%_100%)] ${index > 0 ? 'right-8' : ''}
        z-10 bg-slate-300 group-hover:text-gray-800
@@ -56,7 +55,7 @@ export default function Taps() {
   return (
     <div className="flex items-center justify-start  space-x-4 px-5 ">
       {POST_TAPS.map((item, index) => (
-        <Tap item={item} index={index} selected={selected} handleSelected={handleSelected} />
+        <Tap key={item.key} item={item} index={index} selected={selected} handleSelected={handleSelected} />
       ))}
     </div>
   );
