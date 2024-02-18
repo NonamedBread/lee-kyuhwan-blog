@@ -1,5 +1,7 @@
 import { GetStaticProps } from 'next';
 
+import { getAllPosts } from '@/lib/postUtils';
+
 import Posts from '@/components/posts/Posts';
 
 interface Props {
@@ -21,6 +23,10 @@ export default function Home({ posts }: Props) {
 
 export const getStaticProps: GetStaticProps = async () => {
   // dummy data
+
+  const test = getAllPosts();
+  console.log(test);
+
   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
   const posts = await res.json();
 
