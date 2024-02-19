@@ -1,10 +1,10 @@
 import PostsGrid from './PostGrid';
 
 interface Post {
-  userId: number;
-  id: number;
+  slug: string;
   title: string;
-  body: string;
+  date: string;
+  content: string;
 }
 
 export default function Posts({ posts }: { posts: Post[] }) {

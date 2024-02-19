@@ -1,10 +1,10 @@
 import PostItem from './PostItem';
 
 interface Post {
-  userId: number;
-  id: number;
+  slug: string;
   title: string;
-  body: string;
+  date: string;
+  content: string;
 }
 
 export default function PostGrid({ posts }: { posts: Post[] }) {
@@ -12,7 +12,7 @@ export default function PostGrid({ posts }: { posts: Post[] }) {
     <div>
       <div className="flex min-h-screen flex-wrap rounded-md border border-customGreay-200 p-2 dark:border-customGreay-100">
         {posts.map((post) => (
-          <PostItem key={post.id} post={post} />
+          <PostItem post={post} />
         ))}
       </div>
     </div>

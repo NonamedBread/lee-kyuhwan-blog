@@ -6,10 +6,10 @@ import Posts from '@/components/posts/Posts';
 
 interface Props {
   posts: {
-    userId: number;
-    id: number;
+    slug: string;
     title: string;
-    body: string;
+    date: string;
+    content: string;
   }[];
 }
 
@@ -22,17 +22,11 @@ export default function Home({ posts }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  // dummy data
-
-  const test = getAllPosts();
-  console.log(test);
-
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts = await res.json();
+  const posts = getAllPosts();
 
   return {
     props: {
-      posts: posts.slice(0, 13),
+      posts: posts,
     },
   };
 };
