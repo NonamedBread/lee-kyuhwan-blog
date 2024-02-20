@@ -1,6 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import ReactMarkdown from 'react-markdown';
+
+import MarkdownRenderer from '@/components/MarkdownRenderer';
+
 interface Post {
   slug: string;
   title: string;
@@ -27,16 +31,20 @@ export default function PostItem({ post }: { post: Post }) {
           <div>
             <h2 className="mb-2 overflow-hidden overflow-ellipsis whitespace-nowrap font-bold">{post.title}</h2>
           </div>
-          <p
+
+          {/* content 길이 조절 */}
+          {/* <p
             className="h-28 overflow-hidden"
             style={{
               display: '-webkit-box',
               WebkitLineClamp: 5,
               WebkitBoxOrient: 'vertical',
             }}
-          >
-            {/* {post.body} */}
-          </p>
+          > */}
+          {/* {post.content} */}
+          <MarkdownRenderer>{post.content}</MarkdownRenderer>
+          {/* {typeof window !== 'undefined' && <ReactMarkdown>{post.content}</ReactMarkdown>}{' '} */}
+          {/* </p> */}
           <div className="my-4 w-full border-t border-gray-200"></div>
           <div className="mt-4 flex  justify-between">
             <p className="text-sm text-gray-500">{formattedDate}</p>
