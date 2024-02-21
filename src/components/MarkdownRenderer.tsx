@@ -17,6 +17,5 @@ export default function MarkdownRenderer({ children }: { children: string }) {
     },
   };
 
-  // return <ReactMarkdown >{children}</ReactMarkdown>;
   return <ReactMarkdown components={customRenderers}>{children}</ReactMarkdown>;
 }
