@@ -12,7 +12,7 @@ export default function PostGrid({ posts }: { posts: Post[] }) {
     <div>
       <div className="flex min-h-screen flex-wrap rounded-md border border-customGreay-200 p-2 dark:border-customGreay-100">
         {posts.map((post) => (
-          <PostItem post={post} />
+          <PostItem key={post.slug} post={post} />
         ))}
       </div>
     </div>

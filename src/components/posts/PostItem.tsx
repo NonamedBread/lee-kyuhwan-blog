@@ -29,8 +29,6 @@ export default function PostItem({ post }: { post: Post }) {
         <div className="h-3/5 w-full p-4">
           <Link href={`/posts/${post.slug}`}>
             <h2 className="mb-2 overflow-hidden overflow-ellipsis whitespace-nowrap font-bold">{post.title}</h2>
-          </Link>
-          <Link href={`/posts/${post.slug}`}>
             <div
               className="h-28 overflow-hidden"
               style={{
