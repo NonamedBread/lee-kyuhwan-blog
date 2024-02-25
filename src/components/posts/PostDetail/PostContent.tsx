@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 
+import PostHeader from './Postheader';
+
 interface Post {
   slug: string;
   title: string;
@@ -9,6 +11,7 @@ interface Post {
 }
 
 export default function PostContent({ post }: { post: Post }) {
+  const { title, date, content } = post;
   const customRenderers = {
     p(paragraph: any) {
       const { node } = paragraph;
@@ -25,10 +28,10 @@ export default function PostContent({ post }: { post: Post }) {
   };
 
   return (
-    <div className="mx-auto  max-w-2xl">
-      <h1 className="mb-4 text-4xl font-bold">{post.title ?? 'No title'}</h1>
-      <div className="mb-4 text-sm text-gray-500">{post.date}</div>
-      <ReactMarkdown components={customRenderers}>{post.content}</ReactMarkdown>
+    <div className="m-8 mx-auto max-w-2xl">
+      <PostHeader title={title} date={date} />
+
+      <ReactMarkdown components={customRenderers}>{content}</ReactMarkdown>
     </div>
   );
 }

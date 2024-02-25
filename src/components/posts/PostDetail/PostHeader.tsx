@@ -1,12 +1,10 @@
-interface Post {
-  slug: string;
+interface PostHeaderProps {
   title: string;
   date: string;
-  content: string;
 }
 
-export default function PostHeader({ post }: { post: Post }) {
-  const formattedDate = new Date(post.date).toLocaleDateString('ko-KR', {
+export default function PostHeader({ title, date }: PostHeaderProps) {
+  const formattedDate = new Date(date).toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -14,8 +12,9 @@ export default function PostHeader({ post }: { post: Post }) {
 
   return (
     <div className="mb-4">
-      <h1 className="text-4xl font-bold">{post.title}</h1>
-      <div className="mt-4 flex justify-between">
+      <h1 className="mb-4 text-4xl font-bold">{title ?? 'No title'}</h1>
+      <div className="my-4 border-b border-gray-500"></div>
+      <div className="mb-4 justify-between text-sm">
         <p className="text-sm text-gray-500">{formattedDate}</p>
       </div>
     </div>

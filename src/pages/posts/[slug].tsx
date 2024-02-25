@@ -8,12 +8,10 @@ import { getPostData, getPostsFiles } from '@/lib/postUtils';
 export default function PostDetailPage(props: any) {
   const { post } = props;
 
-  console.log(post);
-
   return (
-    <>
+    <div className="flex min-h-screen flex-col items-center ">
       <PostContent post={post} />
-    </>
+    </div>
   );
 }
 
