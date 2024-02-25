@@ -1,13 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { getPostData } from '@/lib/postUtils';
+import PostContent from '@/components/posts/\bPostDetail/PostContent';
 
-export default function PostDetailPage() {
-  const router = useRouter();
-  const { slug } = router.query;
+import { getPostData, getPostsFiles } from '@/lib/postUtils';
 
-  // TODO : detail page 구현
+export default function PostDetailPage(props: any) {
+  const { post } = props;
 
-  return <div className="flex min-h-screen flex-col items-center justify-center">{slug}</div>;
+  console.log(post);
+
+  return (
+    <>
+      <PostContent post={post} />
+    </>
+  );
+}
+
+export async function getStaticProps(context: any) {
+  const { params } = context;
+  const { slug } = params;
+
+  const postData = getPostData(slug);
+
+  return {
+    props: {
+      post: postData,
+    },
+    revalidate: 600,
+  };
+}
+
+export async function getStaticPaths() {
+  const postFilenames = getPostsFiles();
+
+  const slugs = postFilenames.map((fileName) => fileName.replace(/\.md$/, ''));
+
+  return {
+    paths: slugs.map((slug) => ({ params: { slug } })),
+    fallback: true,
+  };
 }

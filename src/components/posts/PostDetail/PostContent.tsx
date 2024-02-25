@@ -1,8 +1,14 @@
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 
-export default function MarkdownRenderer({ children }: { children: string }) {
-  //TODO: 커스텀 수정
+interface Post {
+  slug: string;
+  title: string;
+  date: string;
+  content: string;
+}
+
+export default function PostContent({ post }: { post: Post }) {
   const customRenderers = {
     p(paragraph: any) {
       const { node } = paragraph;
@@ -18,5 +24,11 @@ export default function MarkdownRenderer({ children }: { children: string }) {
     },
   };
 
-  return <ReactMarkdown components={customRenderers}>{children}</ReactMarkdown>;
+  return (
+    <div className="mx-auto max-w-2xl">
+      <h1 className="mb-4 text-4xl font-bold">{post.title ?? 'No title'}</h1>
+      <div className="mb-4 text-sm text-gray-500">{post.date}</div>
+      <ReactMarkdown components={customRenderers}>{post.content}</ReactMarkdown>
+    </div>
+  );
 }
