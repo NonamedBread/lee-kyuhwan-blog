@@ -11,11 +11,11 @@ export default function PostHeader({ title, date }: PostHeaderProps) {
   });
 
   return (
-    <div className="mb-4">
-      <h1 className="mb-4 text-4xl font-bold">{title ?? 'No title'}</h1>
+    <div className="gap-4">
+      <h1 className="text-4xl font-bold">{title ?? 'No title'}</h1>
       <div className="my-4 border-b border-gray-500"></div>
-      <div className="mb-4 justify-between text-sm">
-        <p className="text-sm text-gray-500">{formattedDate}</p>
+      <div className="my-4">
+        <p className="text-right text-base text-gray-500">{formattedDate}</p>
       </div>
     </div>
   );

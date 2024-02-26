@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 
-import PostHeader from './Postheader';
+import PostHeader from './PostHeader';
 
 interface Post {
   slug: string;

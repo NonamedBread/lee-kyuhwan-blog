@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import PostContent from '@/components/posts/\bPostDetail/PostContent';
+import PostContent from '@/components/posts/PostDetail/PostContent';
 
 import { getPostData, getPostsFiles } from '@/lib/postUtils';
 
