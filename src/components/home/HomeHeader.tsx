@@ -21,7 +21,7 @@ export default function HomeHeader({ toggleTheme, theme }: Props) {
   return (
     <div className={`flex items-center justify-between py-5`}>
       <Link href={'/'}>
-        <h1 className="text-4xl font-bold">{'<  / Lee`s Devlog>'}</h1>
+        <h1 className="text-4xl font-bold">{'<Lee`s Devlog />'}</h1>
       </Link>
       <div className="flex gap-4">
         <ToggleSwitch toggleAction={toggleTheme} icons={icons} checked={checked} />
