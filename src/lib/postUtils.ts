@@ -10,6 +10,7 @@ interface PostData {
   date: Date;
   content: string;
   isFeatured: boolean;
+  tags: string[];
 }
 
 export function getPostsFiles(): string[] {
@@ -29,6 +30,7 @@ export function getPostData(postIdentifier: string): PostData {
     date: data.date,
     content: content,
     isFeatured: data.isFeatured || false,
+    tags: data.tags || [],
   };
 
   return postData;
