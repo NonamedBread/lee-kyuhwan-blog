@@ -1,4 +1,4 @@
-import PostsGrid from './PostGrid';
+import HomeGrid from '../home/HomeGrid';
 
 interface Post {
   slug: string;
@@ -10,7 +10,7 @@ interface Post {
 export default function Posts({ posts }: { posts: Post[] }) {
   return (
     <>
-      <PostsGrid posts={posts} />
+      <HomeGrid posts={posts} />
     </>
   );
 }

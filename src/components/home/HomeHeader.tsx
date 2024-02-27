@@ -25,7 +25,6 @@ export default function HomeHeader({ toggleTheme, theme }: Props) {
       </Link>
       <div className="flex gap-4">
         <ToggleSwitch toggleAction={toggleTheme} icons={icons} checked={checked} />
-        <input type="text" placeholder="검색" className="rounded border px-4  py-2 " />
         <button className={'rounded border border-customGreay-200  px-4 py-2 dark:border-customGreay-100'}>Login</button>
       </div>
     </div>
