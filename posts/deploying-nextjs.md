@@ -3,7 +3,7 @@ title: Deploying Next.js Apps
 date: '2022-11-01'
 image: deploying-nextjs.png
 excerpt: Learn how to deploy Next.js apps to various platforms including Vercel, AWS, and Netlify.
-isFeatured: false
+isFeatured: true
 tags: ['Next.js', 'Deployment', 'Vercel', 'AWS', 'Netlify']
 ---
 

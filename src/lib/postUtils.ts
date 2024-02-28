@@ -10,6 +10,7 @@ interface PostData {
   date: Date;
   content: string;
   isFeatured: boolean;
+  isDraft?: boolean;
   tags: string[];
 }
 
@@ -30,6 +31,7 @@ export function getPostData(postIdentifier: string): PostData {
     date: data.date,
     content: content,
     isFeatured: data.isFeatured || false,
+    isDraft: data.isDraft || false,
     tags: data.tags || [],
   };
 
@@ -39,13 +41,12 @@ export function getPostData(postIdentifier: string): PostData {
 export function getAllPosts(): PostData[] {
   const postFiles = getPostsFiles();
 
-  const allPosts = postFiles.map((post) => {
-    return getPostData(post);
-  });
+  const allPosts = postFiles.map(getPostData);
 
-  const sortedPosts = allPosts.sort((postA: PostData, postB: PostData) => (postA.date > postB.date ? -1 : 1));
+  const sortedPosts = allPosts.sort((postA: PostData, postB: PostData) => new Date(postB.date).getTime() - new Date(postA.date).getTime());
+  const draftPosts = sortedPosts.filter((post) => process.env.NODE_ENV === 'development' || !post.isDraft);
 
-  return sortedPosts;
+  return draftPosts;
 }
 
 export function getFeaturedPosts(): PostData[] {
