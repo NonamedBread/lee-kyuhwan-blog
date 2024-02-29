@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 import SearchIcon from '@mui/icons-material/Search';
 
 export default function HomeSearch() {
@@ -12,6 +14,15 @@ export default function HomeSearch() {
           className="rounded border px-4 py-2 pl-10 "
         />
       </div>
+      {/* TODO 태그 컴포넌트 분리 */}
+      {/* <select name="tags" id="tags" className="ml-4 rounded border px-4 py-2">
+        <option value="">태그</option>
+        {tags.map((tag) => (
+          <option key={tag} value={tag}>
+            {tag}
+          </option>
+        ))}
+      </select> */}
     </div>
   );
 }

@@ -56,3 +56,25 @@ export function getFeaturedPosts(): PostData[] {
 
   return featuredPosts;
 }
+
+export function getAllTags(): string[] {
+  const allPosts = getAllPosts();
+
+  // 모든 게시물에서 태그를 추출하고, 하나의 배열로 합칩니다.
+  const allTags = allPosts.flatMap((post) => post.tags);
+
+  // 태그의 빈도를 계산합니다.
+  const tagFrequency: { [tag: string]: number } = {};
+  allTags.forEach((tag) => {
+    if (tag in tagFrequency) {
+      tagFrequency[tag]++;
+    } else {
+      tagFrequency[tag] = 1;
+    }
+  });
+
+  // 빈도에 따라 태그를 정렬합니다.
+  const sortedTags = Object.keys(tagFrequency).sort((a, b) => tagFrequency[b] - tagFrequency[a]);
+
+  return sortedTags;
+}
