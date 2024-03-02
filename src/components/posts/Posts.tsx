@@ -1,16 +1,15 @@
-import PostsGrid from './PostGrid';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-interface Post {
-  slug: string;
-  title: string;
-  date: string;
-  content: string;
-}
+import HomeGrid from '../home/HomeGrid';
 
-export default function Posts({ posts }: { posts: Post[] }) {
+export default function Posts() {
+  const posts = useSelector((state: any) => state.posts.posts);
+  const allTags = useSelector((state: any) => state.posts.tags);
+
   return (
     <>
-      <PostsGrid posts={posts} />
+      <HomeGrid posts={posts} allTags={allTags} />
     </>
   );
 }
