@@ -31,7 +31,7 @@ export default function Home({ posts, allTags }: Props) {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
-      <Posts posts={posts} />
+      <Posts />
     </div>
   );
 }

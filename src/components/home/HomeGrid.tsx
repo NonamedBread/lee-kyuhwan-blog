@@ -7,9 +7,15 @@ interface Post {
   title: string;
   date: string;
   content: string;
+  tags: string[];
 }
 
-export default function HomeGrid({ posts }: { posts: Post[] }) {
+interface AllTags {
+  name: string;
+}
+
+export default function HomeGrid({ posts, allTags }: { posts: Post[]; allTags: AllTags[] }) {
+  console.log(posts, allTags);
   return (
     <div>
       <HomeSearch />
