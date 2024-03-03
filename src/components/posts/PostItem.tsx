@@ -8,6 +8,7 @@ interface Post {
   title: string;
   date: string;
   content: string;
+  tags: string[];
 }
 
 export default function PostItem({ post }: { post: Post }) {
