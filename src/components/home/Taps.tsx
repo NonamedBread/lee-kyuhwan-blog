@@ -32,9 +32,11 @@ const Tap = ({ item, index, selected, handleSelected }: TapProps) => {
         className={`flex h-full w-full items-center justify-center ${selected === key ? 'bg-slate-300' : 'bg-slate-100'}
         transition-all
         duration-300 ease-in-out [clip-path:polygon(17%_5%,_83%_5%,_97%_100%,_3%_100%)]
-        group-hover:bg-slate-300 dark:${selected === key ? 'bg-customGreay-800' : 'bg-slate-300'}
+        group-hover:bg-slate-300 dark:${selected === key ? 'bg-customGreay-800' : 'bg-customGreay-600'}
+        hover:cursor-pointer
         dark:text-slate-300
-        dark:hover:bg-customGreay-600`}
+        dark:hover:bg-customGreay-900
+        `}
       >
         {name}
       </div>

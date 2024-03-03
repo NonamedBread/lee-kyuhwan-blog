@@ -76,5 +76,6 @@ export function getAllTags(): string[] {
   // 빈도에 따라 태그를 정렬합니다.
   const sortedTags = Object.keys(tagFrequency).sort((a, b) => tagFrequency[b] - tagFrequency[a]);
 
-  return sortedTags;
+  // 처음 10개의 태그만 반환합니다.
+  return sortedTags.slice(0, 10);
 }
