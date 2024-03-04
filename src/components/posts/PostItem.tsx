@@ -4,15 +4,18 @@ import ReactMarkdown from 'react-markdown';
 
 import HomeTags from '../home/HomeTags';
 
-interface Post {
-  slug: string;
-  title: string;
-  date: string;
-  content: string;
-  tags: string[];
+interface PostProps {
+  post: {
+    slug: string;
+    title: string;
+    date: string;
+    content: string;
+    tags: string[];
+  };
+  handleTagClick: (tag: string) => void;
 }
 
-export default function PostItem({ post }: { post: Post }) {
+export default function PostItem({ post, handleTagClick }: PostProps) {
   const formattedDate = new Date(post.date).toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: 'long',
@@ -59,7 +62,7 @@ export default function PostItem({ post }: { post: Post }) {
           <p className="text-large   text-gray-500">{formattedDate}</p>
           <div className="flex gap-2">
             {post.tags.map((tag) => (
-              <HomeTags key={tag} allTags={[tag]} handleTagClick={() => {}} size="sm" bgColor="slate" textColor="black" />
+              <HomeTags key={tag} allTags={[tag]} handleTagClick={handleTagClick} size="sm" bgColor="slate" textColor="black" />
             ))}
           </div>
         </div>
