@@ -26,7 +26,7 @@ export default function HomeSearch({ allTags }: { allTags: string[] }) {
   }, [selectedTag]);
 
   return (
-    <div className="flex flex-col items-center justify-center p-12">
+    <div className="flex flex-col items-center justify-center space-y-8 p-12">
       <div className="relative w-full max-w-md">
         <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-500 dark:text-slate-100" />
         <input
