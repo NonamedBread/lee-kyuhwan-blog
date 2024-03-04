@@ -33,9 +33,19 @@ const posts = createSlice({
     setTags(state, action: PayloadAction<Tag[]>) {
       state.tags = action.payload;
     },
+    setSearchedTags(state, action: PayloadAction<string>) {
+      const searchTerm = action.payload;
+      console.log('searchTerm:', searchTerm);
+      state.tags = state.tags.map((tag) => {
+        return {
+          ...tag,
+          count: state.posts.filter((post) => post.tags.includes(searchTerm)).length,
+        };
+      });
+    },
   },
 });
 
-export const { setPosts, setTags } = posts.actions;
+export const { setPosts, setTags, setSearchedTags } = posts.actions;
 
 export default posts;

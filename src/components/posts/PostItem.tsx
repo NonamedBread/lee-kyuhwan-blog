@@ -20,7 +20,10 @@ export default function PostItem({ post }: { post: Post }) {
 
   return (
     <div className="h-[45dvh] w-full p-4 md:w-1/2 lg:w-1/3 xl:w-1/4">
-      <div className="h-full overflow-auto rounded bg-white shadow dark:bg-customGreay-800">
+      <div
+        className="h-full overflow-auto rounded bg-white shadow transition-all duration-300 ease-in-out hover:-translate-y-2.5
+    hover:transform dark:bg-customGreay-700"
+      >
         <Link href={{ pathname: '/posts/[slug]', query: { slug: post.slug } }}>
           <div className="relative h-2/5 rounded">
             <Image className="object-cover" src="/images/dummy_image.png" fill priority alt={post.title} sizes="100%" />

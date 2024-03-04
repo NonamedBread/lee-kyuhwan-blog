@@ -1,16 +1,29 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
 import HomeTags from './HomeTags';
 
+import { setSearchedTags } from '@/modules/posts';
+
 export default function HomeSearch({ allTags }: { allTags: string[] }) {
   const [selectedTag, setSelectedTag] = useState<string>('');
 
   const handleTagClick = useCallback((tag: string) => {
     setSelectedTag(tag);
+    setSearchedTags(tag);
   }, []);
+
+  // selectedTag이 변경될 때마다 검색된 태그를 변경
+  useEffect(() => {
+    console.log('selectedTag:', selectedTag);
+    if (!selectedTag) {
+      setSearchedTags('');
+      return;
+    }
+    setSearchedTags(selectedTag);
+  }, [selectedTag]);
 
   return (
     <div className="flex flex-col items-center justify-center p-12">
