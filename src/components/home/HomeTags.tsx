@@ -17,13 +17,13 @@ export default function HomeTags({ allTags, handleTagClick, size = 'md', bgColor
     blue: 'bg-blue-500 hover:bg-blue-600 dark:bg-customGreay-600 dark:hover:bg-customGreay-700',
     red: 'bg-red-500 hover:bg-red-600 dark:bg-customGreay-600 dark:hover:bg-customGreay-700',
     green: 'bg-green-500 hover:bg-green-600 dark:bg-customGreay-600 dark:hover:bg-customGreay-700',
-    slate: 'bg-slate-200 hover:bg-slate-300 dark:bg-customGreay-600 dark:hover:bg-customGreay-700',
+    slate: 'bg-slate-200 hover:bg-slate-300 dark:bg-customGreay-500 dark:hover:bg-customGreay-600',
   };
 
   const textColorClasses = {
     white: 'text-white',
-    black: 'text-black',
-    gray: 'text-gray-500',
+    black: 'text-black dark:text-slate-100 dark:hover:text-slate-200',
+    gray: 'text-gray-500 ',
   };
 
   const textSizeClasses = {
