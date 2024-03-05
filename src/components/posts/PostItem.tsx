@@ -23,7 +23,7 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
   });
 
   return (
-    <div className="h-[30dvh] w-full p-2 ">
+    <div className="w-full p-2 ">
       <div
         className="w-full overflow-auto rounded bg-white shadow transition-all duration-300 ease-in-out hover:-translate-y-2.5
                     hover:transform dark:bg-customGreay-700"
@@ -61,9 +61,9 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
         <div className="flex items-center justify-between gap-2 p-5">
           <p className="text-large   text-gray-500">{formattedDate}</p>
           <div className="flex gap-2">
-            {post.tags.map((tag) => (
+            {/* {post.tags.map((tag) => (
               <HomeTags key={tag} allTags={[tag]} handleTagClick={handleTagClick} size="sm" bgColor="slate" textColor="black" />
-            ))}
+            ))} */}
           </div>
         </div>
       </div>

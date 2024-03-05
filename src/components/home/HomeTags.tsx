@@ -1,5 +1,9 @@
 interface HomeTagsProps {
-  allTags: string[];
+  allTags: {
+    name: string;
+    count: number;
+  }[];
+
   handleTagClick: (tag: string) => void;
   size?: 'sm' | 'md' | 'lg';
   bgColor?: 'blue' | 'red' | 'green' | 'slate';
@@ -36,12 +40,12 @@ export default function HomeTags({ allTags, handleTagClick, size = 'md', bgColor
     <div>
       {allTags.map((tag) => (
         <button
-          key={tag}
-          onClick={() => handleTagClick(tag)}
+          key={tag.name}
+          onClick={() => handleTagClick(tag.name)}
           className={`m-1 rounded-full transition-all duration-300 ease-in-out hover:cursor-pointer
           ${sizeClasses[size]} ${bgColorClasses[bgColor]} ${textColorClasses[textColor]} ${textSizeClasses[size]}`}
         >
-          {tag}
+          {tag.name}
         </button>
       ))}
     </div>

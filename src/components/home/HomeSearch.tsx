@@ -6,7 +6,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import HomeTags from './HomeTags';
 
 interface SearchProps {
-  allTags: string[];
+  allTags: {
+    name: string;
+    count: number;
+  }[];
+
   selectedTag: string;
   handleTagClick: (tag: string) => void;
 }

@@ -23,7 +23,7 @@ const initialState: PostsState = {
   tags: [],
 };
 
-const posts = createSlice({
+const data = createSlice({
   name: 'posts',
   initialState: initialState,
   reducers: {
@@ -35,17 +35,16 @@ const posts = createSlice({
     },
     setSearchedTags(state, action: PayloadAction<string>) {
       const searchTerm = action.payload;
-      console.log('searchTerm:', searchTerm);
       state.tags = state.tags.map((tag) => {
+        console.log('tag:', tag);
         return {
           ...tag,
-          count: state.posts.filter((post) => post.tags.includes(searchTerm)).length,
         };
       });
     },
   },
 });
 
-export const { setPosts, setTags, setSearchedTags } = posts.actions;
+export const { setPosts, setTags, setSearchedTags } = data.actions;
 
-export default posts;
+export default data;

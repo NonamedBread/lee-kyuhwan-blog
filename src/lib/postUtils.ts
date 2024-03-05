@@ -57,7 +57,7 @@ export function getFeaturedPosts(): PostData[] {
   return featuredPosts;
 }
 
-export function getAllTags(): string[] {
+export function getAllTags(): Tag[] {
   const allPosts = getAllPosts();
 
   // 모든 게시물에서 태그를 추출하고, 하나의 배열로 합칩니다.
@@ -77,5 +77,8 @@ export function getAllTags(): string[] {
   const sortedTags = Object.keys(tagFrequency).sort((a, b) => tagFrequency[b] - tagFrequency[a]);
 
   // 처음 10개의 태그만 반환합니다.
-  return sortedTags.slice(0, 10);
+  const topTags = sortedTags.slice(0, 10);
+
+  // 각 태그를 Tag 객체로 변환합니다.
+  return topTags.map((tag) => ({ name: tag, count: tagFrequency[tag] }));
 }
