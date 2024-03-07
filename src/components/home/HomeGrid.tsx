@@ -13,7 +13,10 @@ interface Props {
     title: string;
     date: string;
     content: string;
-    tags: string[];
+    tags: {
+      name: string;
+      count: number;
+    }[];
   }[];
   allTags: {
     name: string;

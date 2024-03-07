@@ -1,5 +1,5 @@
 interface HomeTagsProps {
-  allTags: {
+  tags: {
     name: string;
     count: number;
   }[];
@@ -10,7 +10,7 @@ interface HomeTagsProps {
   textColor?: 'white' | 'black' | 'gray';
 }
 
-export default function HomeTags({ allTags, handleTagClick, size = 'md', bgColor = 'blue', textColor = 'white' }: HomeTagsProps) {
+export default function HomeTags({ tags, handleTagClick, size = 'md', bgColor = 'blue', textColor = 'white' }: HomeTagsProps) {
   const sizeClasses = {
     sm: 'px-2 py-1',
     md: 'px-4 py-2',
@@ -38,7 +38,7 @@ export default function HomeTags({ allTags, handleTagClick, size = 'md', bgColor
 
   return (
     <div>
-      {allTags.map((tag) => (
+      {tags.map((tag) => (
         <button
           key={tag.name}
           onClick={() => handleTagClick(tag.name)}

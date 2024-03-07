@@ -5,7 +5,10 @@ export type Post = {
   title: string;
   date: string;
   content: string;
-  tags: string[];
+  tags: {
+    name: string;
+    count: number;
+  }[];
 };
 
 export type Tag = {

@@ -36,7 +36,7 @@ export default function HomeSearch({ allTags, selectedTag, handleTagClick }: Sea
         )}
       </div>
       <div className="mt-4">
-        <HomeTags allTags={allTags} handleTagClick={handleTagClick} />
+        <HomeTags tags={allTags} handleTagClick={handleTagClick} />
       </div>
     </div>
   );

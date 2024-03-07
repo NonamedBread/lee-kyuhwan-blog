@@ -10,7 +10,10 @@ interface PostProps {
     title: string;
     date: string;
     content: string;
-    tags: string[];
+    tags: {
+      name: string;
+      count: number;
+    }[];
   };
   handleTagClick: (tag: string) => void;
 }
@@ -61,9 +64,9 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
         <div className="flex items-center justify-between gap-2 p-5">
           <p className="text-large   text-gray-500">{formattedDate}</p>
           <div className="flex gap-2">
-            {/* {post.tags.map((tag) => (
-              <HomeTags key={tag} allTags={[tag]} handleTagClick={handleTagClick} size="sm" bgColor="slate" textColor="black" />
-            ))} */}
+            {post.tags.map((tag) => (
+              <HomeTags key={tag.name} tags={[tag]} handleTagClick={handleTagClick} size="sm" bgColor="slate" textColor="black" />
+            ))}
           </div>
         </div>
       </div>
