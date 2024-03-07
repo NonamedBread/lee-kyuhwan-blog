@@ -38,11 +38,9 @@ const data = createSlice({
     },
     setSearchedTags(state, action: PayloadAction<string>) {
       const searchTerm = action.payload;
-      state.tags = state.tags.map((tag) => {
-        console.log('tag:', tag);
-        return {
-          ...tag,
-        };
+      state.posts = state.posts.filter((post) => {
+        if (!searchTerm) return true;
+        return post.tags.some((tag) => tag.name === searchTerm);
       });
     },
   },
