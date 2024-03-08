@@ -40,10 +40,12 @@ const data = createSlice({
       state.tags = action.payload;
     },
     setSearchedTags(state, action: PayloadAction<string>) {
-      const searchTerm = action.payload;
+      const searchTerm = action.payload.toLowerCase();
       state.filteredPosts = state.posts.filter((post) => {
         if (!searchTerm) return true;
-        return post.tags.some((tag) => tag.name === searchTerm);
+        return post.tags.some((tag) => {
+          return tag.name.toLowerCase().includes(searchTerm);
+        });
       });
     },
   },
