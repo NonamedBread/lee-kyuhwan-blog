@@ -19,11 +19,13 @@ export type Tag = {
 export type PostsState = {
   posts: Post[];
   tags: Tag[];
+  filteredPosts: Post[];
 };
 
 const initialState: PostsState = {
   posts: [],
   tags: [],
+  filteredPosts: [],
 };
 
 const data = createSlice({
@@ -32,13 +34,14 @@ const data = createSlice({
   reducers: {
     setPosts(state, action: PayloadAction<Post[]>) {
       state.posts = action.payload;
+      state.filteredPosts = action.payload;
     },
     setTags(state, action: PayloadAction<Tag[]>) {
       state.tags = action.payload;
     },
     setSearchedTags(state, action: PayloadAction<string>) {
       const searchTerm = action.payload;
-      state.posts = state.posts.filter((post) => {
+      state.filteredPosts = state.posts.filter((post) => {
         if (!searchTerm) return true;
         return post.tags.some((tag) => tag.name === searchTerm);
       });
