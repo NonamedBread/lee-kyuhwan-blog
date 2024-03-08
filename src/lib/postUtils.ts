@@ -11,7 +11,10 @@ interface PostData {
   content: string;
   isFeatured: boolean;
   isDraft?: boolean;
-  tags: string[];
+  tags: {
+    name: string;
+    count: number;
+  }[];
 }
 
 export function getPostsFiles(): string[] {
@@ -32,7 +35,7 @@ export function getPostData(postIdentifier: string): PostData {
     content: content,
     isFeatured: data.isFeatured || false,
     isDraft: data.isDraft || false,
-    tags: data.tags || [],
+    tags: data.tags.map((tag: string) => ({ name: tag, count: 1 })),
   };
 
   return postData;
@@ -49,19 +52,18 @@ export function getAllPosts(): PostData[] {
   return draftPosts;
 }
 
-export function getFeaturedPosts(): PostData[] {
+// export function getFeaturedPosts(): PostData[] {
+//   const allPosts = getAllPosts();
+
+//   const featuredPosts = allPosts.filter((post) => post.isFeatured);
+
+//   return featuredPosts;
+// }
+
+export function getAllTags(): PostData['tags'] {
   const allPosts = getAllPosts();
 
-  const featuredPosts = allPosts.filter((post) => post.isFeatured);
-
-  return featuredPosts;
-}
-
-export function getAllTags(): string[] {
-  const allPosts = getAllPosts();
-
-  // 모든 게시물에서 태그를 추출하고, 하나의 배열로 합칩니다.
-  const allTags = allPosts.flatMap((post) => post.tags);
+  const allTags = allPosts.flatMap((post) => post.tags.map((tag) => tag.name));
 
   // 태그의 빈도를 계산합니다.
   const tagFrequency: { [tag: string]: number } = {};
@@ -76,5 +78,9 @@ export function getAllTags(): string[] {
   // 빈도에 따라 태그를 정렬합니다.
   const sortedTags = Object.keys(tagFrequency).sort((a, b) => tagFrequency[b] - tagFrequency[a]);
 
-  return sortedTags;
+  // 처음 10개의 태그만 반환합니다.
+  const topTags = sortedTags.slice(0, 10);
+
+  // 각 태그를 Tag 객체로 변환합니다.
+  return topTags.map((tag) => ({ name: tag, count: tagFrequency[tag] }));
 }

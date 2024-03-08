@@ -5,7 +5,10 @@ export type Post = {
   title: string;
   date: string;
   content: string;
-  tags: string[];
+  tags: {
+    name: string;
+    count: number;
+  }[];
 };
 
 export type Tag = {
@@ -16,26 +19,36 @@ export type Tag = {
 export type PostsState = {
   posts: Post[];
   tags: Tag[];
+  filteredPosts: Post[];
 };
 
 const initialState: PostsState = {
   posts: [],
   tags: [],
+  filteredPosts: [],
 };
 
-const posts = createSlice({
+const data = createSlice({
   name: 'posts',
   initialState: initialState,
   reducers: {
     setPosts(state, action: PayloadAction<Post[]>) {
       state.posts = action.payload;
+      state.filteredPosts = action.payload;
     },
     setTags(state, action: PayloadAction<Tag[]>) {
       state.tags = action.payload;
     },
+    setSearchedTags(state, action: PayloadAction<string>) {
+      const searchTerm = action.payload;
+      state.filteredPosts = state.posts.filter((post) => {
+        if (!searchTerm) return true;
+        return post.tags.some((tag) => tag.name === searchTerm);
+      });
+    },
   },
 });
 
-export const { setPosts, setTags } = posts.actions;
+export const { setPosts, setTags, setSearchedTags } = data.actions;
 
-export default posts;
+export default data;

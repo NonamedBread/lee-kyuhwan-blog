@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import { useDispatch } from 'react-redux';
-import { setPosts, setTags } from '@/modules/posts';
 
+import { setPosts, setTags } from '@/modules/posts';
 import { getAllPosts, getAllTags } from '@/lib/postUtils';
 
 import Posts from '@/components/posts/Posts';
@@ -13,7 +13,10 @@ interface Props {
     title: string;
     date: string;
     content: string;
-    tags: string[];
+    tags: {
+      name: string;
+      count: number;
+    }[];
   }[];
   allTags: {
     name: string;
