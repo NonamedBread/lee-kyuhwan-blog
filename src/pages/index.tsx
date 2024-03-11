@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import { useDispatch } from 'react-redux';
 
-import { setPosts, setTags } from '@/modules/posts';
+import { setAllPosts, setAllTags } from '@/modules/posts';
 import { getAllPosts, getAllTags } from '@/lib/postUtils';
 
 import Posts from '@/components/posts/Posts';
@@ -28,8 +28,8 @@ export default function Home({ posts, allTags }: Props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setPosts(posts));
-    dispatch(setTags(allTags));
+    dispatch(setAllPosts(posts));
+    dispatch(setAllTags(allTags));
   }, [dispatch, posts, allTags]);
 
   return (

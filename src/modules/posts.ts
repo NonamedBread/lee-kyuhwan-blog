@@ -42,15 +42,15 @@ const data = createSlice({
   name: 'data',
   initialState: initialState,
   reducers: {
-    setPosts(state, action: PayloadAction<Post[]>) {
+    setAllPosts(state, action: PayloadAction<Post[]>) {
       state.posts.allPosts = action.payload;
       state.posts.filteredPosts = action.payload;
     },
-    setTags(state, action: PayloadAction<Tag[]>) {
+    setAllTags(state, action: PayloadAction<Tag[]>) {
       state.tags.allTags = action.payload;
       state.tags.topTags = action.payload.slice(0, 10);
     },
-    setSearchedTags(state, action: PayloadAction<string>) {
+    setSearchResults(state, action: PayloadAction<string>) {
       const searchTerm = action.payload.toLowerCase();
       state.posts.filteredPosts = state.posts.allPosts.filter((post) => {
         if (!searchTerm) return true;
@@ -58,10 +58,16 @@ const data = createSlice({
           return tag.name.toLowerCase().includes(searchTerm);
         });
       });
+
+      state.tags.topTags = state.tags.allTags
+        .filter((tag) => {
+          return tag.name.toLowerCase().includes(searchTerm);
+        })
+        .slice(0, 10);
     },
   },
 });
 
-export const { setPosts, setTags, setSearchedTags } = data.actions;
+export const { setAllPosts, setAllTags, setSearchResults } = data.actions;
 
 export default data;
