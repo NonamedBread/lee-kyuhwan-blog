@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import HomeTags from './HomeTags';
 
 interface SearchProps {
-  allTags: {
+  topTags: {
     name: string;
     count: number;
   }[];
@@ -15,7 +15,7 @@ interface SearchProps {
   handleTagClick: (tag: string) => void;
 }
 
-export default function HomeSearch({ allTags, selectedTag, handleTagClick }: SearchProps) {
+export default function HomeSearch({ topTags, selectedTag, handleTagClick }: SearchProps) {
   return (
     <div className="flex flex-col items-center justify-center space-y-8 p-12">
       <div className="relative w-full max-w-md">
@@ -36,7 +36,7 @@ export default function HomeSearch({ allTags, selectedTag, handleTagClick }: Sea
         )}
       </div>
       <div className="mt-4">
-        <HomeTags tags={allTags} handleTagClick={handleTagClick} />
+        <HomeTags tags={topTags} handleTagClick={handleTagClick} />
       </div>
     </div>
   );

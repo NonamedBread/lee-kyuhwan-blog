@@ -10,7 +10,7 @@ const rootReducer = (state: any, action: any) => {
     default: {
       const combinedReducer = combineReducers({
         darkMode: darkModeReducer.reducer,
-        posts: postsReducer.reducer,
+        data: postsReducer.reducer,
       });
       return combinedReducer(state, action);
     }

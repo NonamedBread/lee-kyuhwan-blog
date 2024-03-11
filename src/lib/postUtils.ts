@@ -78,9 +78,6 @@ export function getAllTags(): PostData['tags'] {
   // 빈도에 따라 태그를 정렬합니다.
   const sortedTags = Object.keys(tagFrequency).sort((a, b) => tagFrequency[b] - tagFrequency[a]);
 
-  // 처음 10개의 태그만 반환합니다.
-  const topTags = sortedTags.slice(0, 10);
-
   // 각 태그를 Tag 객체로 변환합니다.
-  return topTags.map((tag) => ({ name: tag, count: tagFrequency[tag] }));
+  return sortedTags.map((tag) => ({ name: tag, count: tagFrequency[tag] }));
 }
