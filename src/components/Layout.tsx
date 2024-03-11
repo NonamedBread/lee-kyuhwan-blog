@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import darkMode from '@/modules/darkMode';
 import HomeHeader from '@/components/home/HomeHeader';
+import HomeFooter from './home/HomeFooter';
 
 interface Props {
   children: React.ReactNode;
@@ -22,9 +23,10 @@ export default function Layout({ children }: Props) {
   return (
     <>
       <main className="bg-slate-100 text-gray-700 dark:bg-customGreay-900 dark:text-slate-100">
-        <div className="container mx-auto space-y-16">
+        <div className="container mx-auto space-y-8">
           <HomeHeader toggleTheme={toggleTheme} theme={theme} />
           {children}
+          <HomeFooter />
         </div>
       </main>
     </>

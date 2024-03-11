@@ -37,7 +37,7 @@ export default function HomeGrid({ posts, topTags }: Props) {
   );
 
   return (
-    <div className="flex w-full flex-col items-center justify-center space-y-8">
+    <div className="flex w-full flex-col items-center  space-y-8">
       <HomeSearch topTags={topTags} selectedTag={selectedTag} handleTagClick={handleTagClick} />
       <div className="w-[60%]">
         <Taps />
