@@ -12,9 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <ThemeWrapper>
         <Layout>
-          <div className="ml-4 border-l-8 border-gray-200">
-            <Component {...pageProps} />
-          </div>
+          <Component {...pageProps} />
         </Layout>
       </ThemeWrapper>
     </Provider>
