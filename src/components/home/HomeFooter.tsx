@@ -4,7 +4,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 export default function HomeFooter() {
   return (
     <footer className="flex h-24 w-full ">
-      <div className="flex w-full items-center justify-between pb-5">
+      <div className="flex w-full items-center justify-between p-5">
         <Link href={'/'}>
           <h1 className="text-4xl font-bold">{'</ Lee`s Devlog >'}</h1>
         </Link>
