@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef, use } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import darkMode from '@/modules/darkMode';
 import HomeHeader from '@/components/home/HomeHeader';
+import FixedHeader from './home/FixedHeader';
 import HomeFooter from './home/HomeFooter';
 
 interface Props {
@@ -11,8 +12,9 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   const dispatch = useDispatch();
+  const headerRef = useRef(null);
   const theme = useSelector((state: any) => state.darkMode.theme);
-  const [showHeader, setShowHeader] = useState(true);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [scrollPos, setScrollPos] = useState(0);
 
   const toggleTheme = useCallback(() => {
@@ -24,22 +26,36 @@ export default function Layout({ children }: Props) {
   }, [theme, dispatch]);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => setIsHeaderVisible(entry.isIntersecting), { threshold: 0.1 });
+
+    const currentRef = headerRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      setShowHeader(currentScrollPos < scrollPos || currentScrollPos < 100);
+      setIsHeaderVisible(currentScrollPos < scrollPos);
       setScrollPos(currentScrollPos);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrollPos]);
-
-  //TODO : 첫 스크롤시 스크롤 위로 올라가는 문제 showHeader 조건문 수정 필요, slide up 효과 추가
+  }, [isHeaderVisible, scrollPos]);
 
   return (
     <>
       <main className="bg-slate-100 pt-[headerHeight] text-gray-700 dark:bg-customGreay-900 dark:text-slate-100">
-        {showHeader && <HomeHeader toggleTheme={toggleTheme} theme={theme} scrollPos={scrollPos} />}
+        <HomeHeader ref={headerRef} toggleTheme={toggleTheme} theme={theme} />
+        <FixedHeader isHeaderVisible={isHeaderVisible} toggleTheme={toggleTheme} theme={theme} />
         <div className="mx-8 border-l-8">
           <div className=" container mx-auto space-y-8">{children}</div>
         </div>

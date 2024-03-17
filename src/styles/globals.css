@@ -3,25 +3,51 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "GmarketSans";
+  font-family: 'GmarketSans';
   font-weight: 300;
   font-style: normal;
-  src: url("/fonts/GmarketSansTTFLight.ttf") format("truetype");
+  src: url('/fonts/GmarketSansTTFLight.ttf') format('truetype');
   font-display: swap;
 }
 @font-face {
-  font-family: "GmarketSans";
+  font-family: 'GmarketSans';
   font-weight: 500;
   font-style: normal;
-  src: url("/fonts/GmarketSansTTFMedium.ttf") format("truetype");
+  src: url('/fonts/GmarketSansTTFMedium.ttf') format('truetype');
   font-display: swap;
 }
 @font-face {
-  font-family: "GmarketSans";
+  font-family: 'GmarketSans';
   font-weight: 700;
   font-style: normal;
-  src: url("/fonts/GmarketSansTTFBold.ttf") format("truetype");
+  src: url('/fonts/GmarketSansTTFBold.ttf') format('truetype');
   font-display: swap;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.slide-in {
+  animation: slide-in 0.5s forwards;
+}
+
+.slide-out {
+  animation: slide-out 0.5s forwards;
 }
 
 /* :root {
@@ -35,7 +61,7 @@
 } */
 
 body {
-  font-family: "GmarketSans", sans-serif;
+  font-family: 'GmarketSans', sans-serif;
   /* color: rgb(var(--foreground-rgb)); */
   /* background: linear-gradient(
       to bottom,

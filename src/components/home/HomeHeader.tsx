@@ -1,14 +1,14 @@
-import { useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 import Link from 'next/link';
 
-import ToggleSwitch from '../ToggleSwitch';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
+
+import ToggleSwitch from '../ToggleSwitch';
 
 interface Props {
   toggleTheme: () => void;
   theme: string;
-  scrollPos: number;
 }
 
 const icons = {
@@ -16,17 +16,11 @@ const icons = {
   unChecked: WbSunnyIcon,
 };
 
-export default function HomeHeader({ toggleTheme, theme, scrollPos }: Props) {
+const HomeHeader = forwardRef<HTMLDivElement, Props>(({ toggleTheme, theme }, ref) => {
   const checked = useMemo(() => (theme === 'dark' ? true : false), [theme]);
 
-  const parentClass = 'left-0 right-0 p-5 w-full';
-  const fixedClass =
-    'fixed top-0 left-0 mx-auto shadow-md transition-all duration-300 ease-in-out dark:shadow-lg dark:border-b-2 box-shadow: 0 4px 2px -2px gray z-50';
-
-  const headerClass = scrollPos > 50 ? `${parentClass} ${fixedClass}` : parentClass;
-
   return (
-    <div className={`flex items-center justify-between ${headerClass} bg-slate-100 text-gray-700 dark:bg-customGreay-900 dark:text-slate-100`}>
+    <div ref={ref} className={`flex items-center justify-between p-5`}>
       <Link href={'/'}>
         <h1 className="text-4xl font-bold">{'< Lee`s Devlog >'}</h1>
       </Link>
@@ -36,4 +30,8 @@ export default function HomeHeader({ toggleTheme, theme, scrollPos }: Props) {
       </div>
     </div>
   );
-}
+});
+
+HomeHeader.displayName = 'HomeHeader';
+
+export default HomeHeader;
