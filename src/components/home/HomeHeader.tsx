@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 import ToggleSwitch from '../ToggleSwitch';
 
@@ -16,6 +17,8 @@ const icons = {
   unChecked: WbSunnyIcon,
 };
 
+//TODO : 사이드탭 추가, 툴팁 추가
+
 const HomeHeader = forwardRef<HTMLDivElement, Props>(({ toggleTheme, theme }, ref) => {
   const checked = useMemo(() => (theme === 'dark' ? true : false), [theme]);
 
@@ -24,9 +27,11 @@ const HomeHeader = forwardRef<HTMLDivElement, Props>(({ toggleTheme, theme }, re
       <Link href={'/'}>
         <h1 className="text-4xl font-bold">{'< Lee`s Devlog >'}</h1>
       </Link>
-      <div className="flex gap-4">
+      <div className="flex items-center gap-9 pr-6">
         <ToggleSwitch toggleAction={toggleTheme} icons={icons} checked={checked} />
-        <button className={'rounded border border-customGreay-200 px-4 py-2 dark:border-customGreay-100'}>Login</button>
+        <Link href={'https://github.com/NonamedBread'} passHref>
+          <GitHubIcon className="cursor-pointer text-5xl" />
+        </Link>
       </div>
     </div>
   );

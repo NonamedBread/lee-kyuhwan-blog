@@ -2,9 +2,11 @@ import React, { useState, useEffect, useCallback, useRef, use } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import darkMode from '@/modules/darkMode';
+
 import HomeHeader from '@/components/home/HomeHeader';
 import FixedHeader from './home/FixedHeader';
 import HomeFooter from './home/HomeFooter';
+import HomeSideTap from './home/HomeSideTap';
 
 interface Props {
   children: React.ReactNode;
@@ -61,6 +63,7 @@ export default function Layout({ children }: Props) {
         </div>
         <HomeFooter />
       </main>
+      <HomeSideTap />
     </>
   );
 }
