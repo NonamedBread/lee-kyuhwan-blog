@@ -51,7 +51,6 @@ export default function Taps() {
     setSelected(key);
   };
 
-  //TODO : clip path tailwindcss로 이동
   return (
     <div className="flex items-center justify-start  space-x-4 px-5 ">
       {POST_TAPS.map((item, index) => (

@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef, use } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import darkMode from '@/modules/darkMode';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 import HomeHeader from '@/components/home/HomeHeader';
 import FixedHeader from './home/FixedHeader';
@@ -13,19 +11,12 @@ interface Props {
 }
 
 export default function Layout({ children }: Props) {
-  const dispatch = useDispatch();
   const headerRef = useRef(null);
-  const theme = useSelector((state: any) => state.darkMode.theme);
+  const ui = useSelector((state: any) => state.ui);
+  const theme = ui.darkMode.theme;
+  const sideTap = ui.layout.sideTap;
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [scrollPos, setScrollPos] = useState(0);
-
-  const toggleTheme = useCallback(() => {
-    if (theme === 'dark') {
-      dispatch(darkMode.actions.enableLightMode());
-    } else {
-      dispatch(darkMode.actions.enableDarkMode());
-    }
-  }, [theme, dispatch]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => setIsHeaderVisible(entry.isIntersecting), { threshold: 0.1 });
@@ -56,8 +47,8 @@ export default function Layout({ children }: Props) {
   return (
     <>
       <main className="bg-slate-100 pt-[headerHeight] text-gray-700 dark:bg-customGreay-900 dark:text-slate-100">
-        <HomeHeader ref={headerRef} toggleTheme={toggleTheme} theme={theme} />
-        <FixedHeader isHeaderVisible={isHeaderVisible} toggleTheme={toggleTheme} theme={theme} />
+        <HomeHeader ref={headerRef} theme={theme} sideTap={sideTap} />
+        <FixedHeader isHeaderVisible={isHeaderVisible} theme={theme} sideTap={sideTap} />
         <div className="mx-8 border-l-8">
           <div className=" container mx-auto space-y-8">{children}</div>
         </div>
