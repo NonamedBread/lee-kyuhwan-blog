@@ -16,6 +16,8 @@ import ToggleSwitch from '../ToggleSwitch';
 interface Props {
   theme: string;
   sideTap: boolean;
+  sideTapSwitchId: string;
+  darkModeSwitchId: string;
 }
 
 const DarkModeicons = {
@@ -28,9 +30,9 @@ const SideTapIcons = {
   unChecked: MenuIcon,
 };
 
-const HomeHeader = forwardRef<HTMLDivElement, Props>(({ theme, sideTap }, ref) => {
+const HomeHeader = forwardRef<HTMLDivElement, Props>(({ theme, sideTap, sideTapSwitchId, darkModeSwitchId }, ref) => {
   const dispatch = useDispatch();
-  const darkModeSate = useMemo(() => (theme === 'dark' ? true : false), [theme]);
+  const darkModeSate = theme === 'dark';
 
   const toggleTheme = useCallback(() => {
     if (theme === 'dark') {
@@ -42,7 +44,7 @@ const HomeHeader = forwardRef<HTMLDivElement, Props>(({ theme, sideTap }, ref) =
 
   const toggleSideTap = useCallback(() => {
     dispatch(layout.actions.toggleSideTap());
-  }, [sideTap, dispatch]);
+  }, [dispatch]);
 
   return (
     <div ref={ref} className={`flex items-center justify-between p-5`}>
@@ -50,8 +52,8 @@ const HomeHeader = forwardRef<HTMLDivElement, Props>(({ theme, sideTap }, ref) =
         <h1 className="text-4xl font-bold">{'< Lee`s Devlog >'}</h1>
       </Link>
       <div className="flex items-center gap-9">
-        <ToggleSwitch id="sideTapSwitch" toggleAction={toggleSideTap} icons={SideTapIcons} checked={sideTap} iconTheme="sideTap" />
-        <ToggleSwitch id="darkModeSwitch" toggleAction={toggleTheme} icons={DarkModeicons} checked={darkModeSate} iconTheme="darkMode" />
+        <ToggleSwitch id={sideTapSwitchId} toggleAction={toggleSideTap} icons={SideTapIcons} checked={sideTap} iconTheme="sideTap" />
+        <ToggleSwitch id={darkModeSwitchId} toggleAction={toggleTheme} icons={DarkModeicons} checked={darkModeSate} iconTheme="darkMode" />
         <PersonIcon className="cursor-pointer text-5xl text-customGreay-400 dark:text-customGreay-200" />
       </div>
     </div>

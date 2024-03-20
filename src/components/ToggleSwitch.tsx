@@ -44,6 +44,7 @@ export default function ToggleSwitch({ id, icons, checked, toggleAction, iconThe
 
   return (
     <div className="flex items-center justify-center">
+      {/* 라벨 id가 같으면 해당 input과 label은 연결되므로 fixedHeader에서는 id를 다르게 설정해야함 */}
       <label htmlFor={id} className={`relative h-12 w-24 cursor-pointer rounded-full ${labelColor}`}>
         <input type="checkbox" id={id} className="cusror-pointer sr-only" checked={checked} onChange={toggleAction} />
         {/* TODO : https://velog.io/@yijaee/serverside-html-matching */}

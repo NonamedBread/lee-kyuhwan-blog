@@ -42,12 +42,12 @@ export default function Layout({ children }: Props) {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHeaderVisible, scrollPos]);
+  }, [scrollPos]);
 
   return (
     <>
       <main className="bg-slate-100 pt-[headerHeight] text-gray-700 dark:bg-customGreay-900 dark:text-slate-100">
-        <HomeHeader ref={headerRef} theme={theme} sideTap={sideTap} />
+        <HomeHeader ref={headerRef} sideTapSwitchId="sideTapSwitch" darkModeSwitchId="darkModeSwitch" theme={theme} sideTap={sideTap} />
         <FixedHeader isHeaderVisible={isHeaderVisible} theme={theme} sideTap={sideTap} />
         <div className="mx-8 border-l-8">
           <div className=" container mx-auto space-y-8">{children}</div>

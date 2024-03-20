@@ -14,7 +14,7 @@ export default function FixedHeader({ isHeaderVisible, theme, sideTap }: Props) 
     <div
       className={`box-shadow: 0 4px 2px -2px gray ${animationClass} fixed left-0 top-0 z-50  w-full  bg-slate-100 shadow-md transition-all duration-300 ease-in-out dark:border-b-2  dark:bg-customGreay-900 dark:shadow-lg`}
     >
-      <HomeHeader theme={theme} sideTap={sideTap} />
+      <HomeHeader sideTapSwitchId="fixedSideTapSwitch" darkModeSwitchId="fixedDarkModeSwitch" theme={theme} sideTap={sideTap} />
     </div>
   );
 }
