@@ -33,7 +33,7 @@ export default function Home({ posts, allTags }: Props) {
   }, [dispatch, posts, allTags]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
+    <div className="flex min-h-screen flex-col items-center ">
       <Posts />
     </div>
   );

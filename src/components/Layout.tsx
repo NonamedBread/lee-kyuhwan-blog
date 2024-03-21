@@ -41,7 +41,7 @@ export default function Layout({ children }: Props) {
       const currentScrollPos = window.scrollY;
       setIsHeaderVisible(currentScrollPos < scrollPos);
       setScrollPos(currentScrollPos);
-      // dispatch(layout.actions.toggleSideTap()); // 스크롤 이벤트가 발생할 때 sideTap을 false로 설정
+      dispatch(layout.actions.setSideTap(false)); // 스크롤 이벤트가 발생할 때 sideTap을 false로 설정
     };
 
     window.addEventListener('scroll', handleScroll);

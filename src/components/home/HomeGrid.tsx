@@ -36,17 +36,17 @@ export default function HomeGrid({ posts, topTags }: Props) {
     [dispatch],
   );
 
+  // TODO : 게시글 갯수마다 광고 && 0개 이하일 경우 게시글이 없다는 문구와 광고 하나
   return (
-    <div className="flex w-full flex-col items-center  space-y-8">
-      <div className="w-full"></div>
+    <div className="flex w-full flex-col items-center space-y-8">
       <HomeSearch topTags={topTags} selectedTag={selectedTag} handleTagClick={handleTagClick} />
-      <div className="w-[60%]">
+      <div className="h-full w-[60%]">
         <Taps />
-        <div className="flex min-h-screen flex-wrap space-y-2 rounded-md border border-customGreay-200 p-2 dark:border-customGreay-100">
+        <div className="flex  flex-wrap space-y-2 rounded-md border border-customGreay-200 p-2 dark:border-customGreay-100">
           {posts && posts.length > 0 ? (
             posts.map((post) => <PostItem key={post.slug} post={post} handleTagClick={handleTagClick} />)
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-2xl font-bold " data-testid="no-search-result">
+            <div className="flex h-full w-full items-center text-2xl font-bold " data-testid="no-search-result">
               <div className="m-20 flex flex-col items-center">
                 <span className="text-2xl font-bold">
                   아쉽게도 검색 결과가 없네요.

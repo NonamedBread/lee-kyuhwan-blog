@@ -17,6 +17,7 @@ const layout = createSlice({
     },
     setSideTap(state, action: PayloadAction<boolean>) {
       state.sideTap = action.payload;
+      return state;
     },
   },
 });
