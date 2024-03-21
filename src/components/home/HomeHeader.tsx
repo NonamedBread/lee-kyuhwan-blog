@@ -47,11 +47,11 @@ const HomeHeader = forwardRef<HTMLDivElement, Props>(({ theme, sideTap, sideTapS
   }, [dispatch]);
 
   return (
-    <div ref={ref} className={`flex items-center justify-between p-5`}>
-      <Link href={'/'}>
+    <div ref={ref} className={`flex h-full items-center justify-between p-5`}>
+      <Link href={'/'} className="h-full cursor-pointer">
         <h1 className="text-4xl font-bold">{'< Lee`s Devlog >'}</h1>
       </Link>
-      <div className="flex items-center gap-9">
+      <div className="flex h-full items-center gap-9">
         <ToggleSwitch id={sideTapSwitchId} toggleAction={toggleSideTap} icons={SideTapIcons} checked={sideTap} iconTheme="sideTap" />
         <ToggleSwitch id={darkModeSwitchId} toggleAction={toggleTheme} icons={DarkModeicons} checked={darkModeSate} iconTheme="darkMode" />
         <PersonIcon className="cursor-pointer text-5xl text-customGreay-400 dark:text-customGreay-200" />

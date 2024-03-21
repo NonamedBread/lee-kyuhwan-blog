@@ -15,6 +15,9 @@ const layout = createSlice({
     toggleSideTap(state) {
       state.sideTap = !state.sideTap;
     },
+    setSideTap(state, action: PayloadAction<boolean>) {
+      state.sideTap = action.payload;
+    },
   },
 });
 

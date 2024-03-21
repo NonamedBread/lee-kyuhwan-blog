@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import PostItem from '../posts/PostItem';
 import HomeSearch from './HomeSearch';
-import HomeSideTap from './HomeSideTap';
 import Taps from '@/components/home/Taps';
 
 import { setSearchResults } from '@/modules/posts';
@@ -39,9 +38,7 @@ export default function HomeGrid({ posts, topTags }: Props) {
 
   return (
     <div className="flex w-full flex-col items-center  space-y-8">
-      <div className="w-full">
-        <HomeSideTap />
-      </div>
+      <div className="w-full"></div>
       <HomeSearch topTags={topTags} selectedTag={selectedTag} handleTagClick={handleTagClick} />
       <div className="w-[60%]">
         <Taps />

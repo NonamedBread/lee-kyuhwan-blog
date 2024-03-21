@@ -4,29 +4,23 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-export default function HomeSideTap() {
+interface Props {
+  sideTap: boolean;
+  isHeaderVisible: boolean;
+}
+
+export default function HomeSideTap({ isHeaderVisible, sideTap }: Props) {
+  const animationClass = sideTap ? 'slide-in-horizontal' : 'slide-out-horizontal';
+
   return (
-    <div className="">
-      {/* <div className="flex flex-col gap-4">
-        <a
-          href="#" // TODO : Add link
-          className="rounded-full bg-slate-100 p-2 dark:bg-customGreay-900"
-        >
-          <HomeIcon className="h-8 w-8 text-slate-100 dark:text-customGreay-100" />
-        </a>
-        <a
-          href="#" // TODO : Add link
-          className="rounded-full bg-slate-100 p-2 dark:bg-customGreay-900"
-        >
-          <SearchIcon className="h-8 w-8 text-slate-100 dark:text-customGreay-100" />
-        </a>
-        <a
-          href="#" // TODO : Add link
-          className="rounded-full bg-slate-100 p-2 dark:bg-customGreay-900"
-        >
-          <ArrowUpwardIcon className="h-8 w-8 text-slate-100 dark:text-customGreay-100" />
-        </a>
-      </div> */}
+    <div
+      className={`${animationClass} fixed left-0 top-0 z-50 ${isHeaderVisible ? '' : 'mt-[10vh]'} h-screen w-[20dvw]  transition-all duration-300 ease-in-out `}
+    >
+      <div
+        className={` flex h-full flex-col items-center justify-center rounded-lg  bg-slate-200  shadow-lg dark:border-r-2 dark:border-t-2 dark:bg-customGreay-800 `}
+      >
+        sideTap
+      </div>
     </div>
   );
 }
