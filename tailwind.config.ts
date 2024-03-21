@@ -10,6 +10,29 @@ const config: Config = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
+        customRed: {
+          100: '#fff1f0',
+          200: '#ffccc7',
+          300: '#ffa39e',
+          400: '#ff7875',
+          500: '#ff4d4f',
+          600: '#f5222d',
+          700: '#cf1322',
+          800: '#a80711',
+          900: '#820014',
+        },
+        customGreen: {
+          100: '#f6ffed',
+          200: '#d9f7be',
+          300: '#b7eb8f',
+          400: '#95de64',
+          500: '#73d13d',
+          600: '#52c41a',
+          700: '#389e0d',
+          800: '#237804',
+          900: '#135200',
+        },
+
         customGreay: {
           100: '#f5f5f5',
           200: '#e5e5e5',

@@ -19,10 +19,15 @@ const getThemeColors = (theme: string | undefined) => {
       iconColor = 'text-yellow-500 dark:text-customBlue-200';
       break;
     case 'sideTap':
-      labelColor = 'bg-customGreay-300 dark:bg-customGreay-100';
+      labelColor = 'bg-customRed-300 dark:bg-customRed-200';
       spanColor = 'bg-customGreay-100 dark:bg-customGreay-600';
-      iconColor = 'text-customGreay-700 dark:text-customGreay-100';
+      iconColor = 'text-customRed-400 dark:text-customRed-200';
       break;
+    // case 'sideTap':
+    //   labelColor = 'bg-red-500 dark:bg-yellow-500';
+    //   spanColor = 'bg-red-200 dark:bg-yellow-200';
+    //   iconColor = 'text-red-700 dark:text-yellow-700';
+    //   break;
     default:
       labelColor = 'bg-yellow-500';
       iconColor = 'text-yellow-500';
@@ -45,11 +50,11 @@ export default function ToggleSwitch({ id, icons, checked, toggleAction, iconThe
   return (
     <div className="flex items-center justify-center">
       {/* 라벨 id가 같으면 해당 input과 label은 연결되므로 fixedHeader에서는 id를 다르게 설정해야함 */}
-      <label htmlFor={id} className={`relative h-12 w-24 cursor-pointer rounded-full ${labelColor}`}>
+      <label htmlFor={id} className={`relative flex h-12 w-24 cursor-pointer items-center justify-center rounded-full ${labelColor}`}>
         <input type="checkbox" id={id} className="cusror-pointer sr-only" checked={checked} onChange={toggleAction} />
         {/* TODO : https://velog.io/@yijaee/serverside-html-matching */}
         <span
-          className={`absolute ${spanColor} left-0 flex h-12 w-12 transform items-center justify-center rounded-full  shadow-lg transition-transform duration-300 ${checked ? 'translate-x-full' : ''}`}
+          className={`absolute ${spanColor} left-0 flex h-14 w-14 transform items-center justify-center rounded-full shadow-lg transition-transform duration-300 ${checked ? 'translate-x-full' : 'translate-x-0'}`}
         >
           {mounted && <Icon className={`h-8 w-8 ${iconColor}`} />}
         </span>
