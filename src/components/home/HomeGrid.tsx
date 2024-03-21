@@ -5,7 +5,7 @@ import PostItem from '../posts/PostItem';
 import HomeSearch from './HomeSearch';
 import Taps from '@/components/home/Taps';
 
-import { setSearchedTags } from '@/modules/posts';
+import { setSearchResults } from '@/modules/posts';
 
 interface Props {
   posts: {
@@ -18,44 +18,45 @@ interface Props {
       count: number;
     }[];
   }[];
-  allTags: {
+  topTags: {
     name: string;
     count: number;
   }[];
 }
 
-export default function HomeGrid({ posts, allTags }: Props) {
+export default function HomeGrid({ posts, topTags }: Props) {
   const dispatch = useDispatch();
   const [selectedTag, setSelectedTag] = useState<string>('');
 
   const handleTagClick = useCallback(
     (tag: string) => {
       setSelectedTag(tag);
-      console.log('tag:', tag);
-      dispatch(setSearchedTags(tag));
+      dispatch(setSearchResults(tag));
     },
     [dispatch],
   );
 
-  // selectedTag이 변경될 때마다 검색된 태그를 변경
-  // useEffect(() => {
-  //   console.log('selectedTag:', selectedTag);
-  //   if (!selectedTag) {
-  //     dispatch(setSearchedTags(''));
-  //     return;
-  //   }
-  //   dispatch(setSearchedTags(selectedTag));
-  // }, [selectedTag]);
-
+  // TODO : 게시글 갯수마다 광고 && 0개 이하일 경우 게시글이 없다는 문구와 광고 하나
   return (
-    <div className="flex flex-col items-center justify-center space-y-8">
-      <HomeSearch allTags={allTags} selectedTag={selectedTag} handleTagClick={handleTagClick} />
-      <div className="w-[60%]">
+    <div className="flex w-full flex-col items-center space-y-8">
+      <HomeSearch topTags={topTags} selectedTag={selectedTag} handleTagClick={handleTagClick} />
+      <div className="h-full w-[60%]">
         <Taps />
-        <div className="flex min-h-screen flex-wrap space-y-2 rounded-md border border-customGreay-200 p-2 dark:border-customGreay-100">
-          {posts.map((post) => (
-            <PostItem key={post.slug} post={post} handleTagClick={handleTagClick} />
-          ))}
+        <div className="flex  flex-wrap space-y-2 rounded-md border border-customGreay-200 p-2 dark:border-customGreay-100">
+          {posts && posts.length > 0 ? (
+            posts.map((post) => <PostItem key={post.slug} post={post} handleTagClick={handleTagClick} />)
+          ) : (
+            <div className="flex h-full w-full items-center text-2xl font-bold " data-testid="no-search-result">
+              <div className="m-20 flex flex-col items-center">
+                <span className="text-2xl font-bold">
+                  아쉽게도 검색 결과가 없네요.
+                  <span role="img" aria-label="Sad face" className="text-4xl">
+                    😅
+                  </span>
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

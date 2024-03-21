@@ -1,12 +1,14 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
 import HomeTags from './HomeTags';
 
+import layout from '@/modules/layout';
+
 interface SearchProps {
-  allTags: {
+  topTags: {
     name: string;
     count: number;
   }[];
@@ -15,11 +17,14 @@ interface SearchProps {
   handleTagClick: (tag: string) => void;
 }
 
-export default function HomeSearch({ allTags, selectedTag, handleTagClick }: SearchProps) {
+export default function HomeSearch({ topTags, selectedTag, handleTagClick }: SearchProps) {
+  const dispatch = useDispatch();
+
+  // TODO 인풋 박스를 클릭해서 사이드탭 열었을때 어떻게 닫을지 고민해보기
   return (
-    <div className="flex flex-col items-center justify-center space-y-8 p-12">
+    <div className="flex w-full flex-col items-center justify-center space-y-8 p-12">
       <div className="relative w-full max-w-md">
-        <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-500 dark:text-slate-100" />
+        <SearchIcon className="absolute  left-3 top-1/2 -translate-y-1/2 transform text-gray-500 dark:text-slate-100" />
         <input
           type="text"
           value={selectedTag}
@@ -27,16 +32,20 @@ export default function HomeSearch({ allTags, selectedTag, handleTagClick }: Sea
           className="w-full rounded border px-5 py-2 pl-12 text-left text-gray-500 dark:border-customGreay-100 dark:bg-customGreay-900 dark:text-slate-100
           "
           onChange={(e) => handleTagClick(e.target.value)}
+          onClick={() => dispatch(layout.actions.setSideTap(true))}
         />
         {selectedTag && (
           <CloseIcon
             className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-500 hover:cursor-pointer dark:text-slate-100"
-            onClick={() => handleTagClick('')}
+            onClick={() => {
+              handleTagClick('');
+              dispatch(layout.actions.setSideTap(false));
+            }}
           />
         )}
       </div>
       <div className="mt-4">
-        <HomeTags tags={allTags} handleTagClick={handleTagClick} />
+        <HomeTags tags={topTags} handleTagClick={handleTagClick} />
       </div>
     </div>
   );

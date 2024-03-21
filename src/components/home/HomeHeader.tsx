@@ -1,32 +1,65 @@
-import { useMemo } from 'react';
+import { forwardRef, useMemo, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 
-import ToggleSwitch from '../ToggleSwitch';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import PersonIcon from '@mui/icons-material/Person';
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+
+import darkMode from '@/modules/darkMode';
+import layout from '@/modules/layout';
+
+import ToggleSwitch from '../ToggleSwitch';
 
 interface Props {
-  toggleTheme: () => void;
   theme: string;
+  sideTap: boolean;
+  sideTapSwitchId: string;
+  darkModeSwitchId: string;
 }
 
-const icons = {
+const DarkModeicons = {
   checked: NightsStayIcon,
   unChecked: WbSunnyIcon,
 };
 
-export default function HomeHeader({ toggleTheme, theme }: Props) {
-  const checked = useMemo(() => (theme === 'dark' ? true : false), [theme]);
+const SideTapIcons = {
+  checked: MenuOpenIcon,
+  unChecked: MenuIcon,
+};
+
+const HomeHeader = forwardRef<HTMLDivElement, Props>(({ theme, sideTap, sideTapSwitchId, darkModeSwitchId }, ref) => {
+  const dispatch = useDispatch();
+  const darkModeSate = theme === 'dark';
+
+  const toggleTheme = useCallback(() => {
+    if (theme === 'dark') {
+      dispatch(darkMode.actions.enableLightMode());
+    } else {
+      dispatch(darkMode.actions.enableDarkMode());
+    }
+  }, [theme, dispatch]);
+
+  const toggleSideTap = useCallback(() => {
+    dispatch(layout.actions.toggleSideTap());
+  }, [dispatch]);
 
   return (
-    <div className={`flex items-center justify-between py-5`}>
-      <Link href={'/'}>
-        <h1 className="text-4xl font-bold">{'<Lee`s Devlog />'}</h1>
+    <div ref={ref} className={`flex h-full items-center justify-between p-5`}>
+      <Link href={'/'} className="h-full cursor-pointer">
+        <h1 className="text-4xl font-bold">{'< Lee`s Devlog >'}</h1>
       </Link>
-      <div className="flex gap-4">
-        <ToggleSwitch toggleAction={toggleTheme} icons={icons} checked={checked} />
-        <button className={'rounded border border-customGreay-200  px-4 py-2 dark:border-customGreay-100'}>Login</button>
+      <div className="flex h-full items-center gap-9">
+        <ToggleSwitch id={sideTapSwitchId} toggleAction={toggleSideTap} icons={SideTapIcons} checked={sideTap} iconTheme="sideTap" />
+        <ToggleSwitch id={darkModeSwitchId} toggleAction={toggleTheme} icons={DarkModeicons} checked={darkModeSate} iconTheme="darkMode" />
+        <PersonIcon className="cursor-pointer text-5xl text-customGreay-400 dark:text-customGreay-200" />
       </div>
     </div>
   );
-}
+});
+
+HomeHeader.displayName = 'HomeHeader';
+
+export default HomeHeader;
