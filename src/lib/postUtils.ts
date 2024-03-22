@@ -6,6 +6,7 @@ const postsDirectory = path.join(process.cwd(), 'posts');
 
 interface PostData {
   slug: string;
+  series?: string;
   title: string;
   date: Date;
   content: string;
@@ -17,19 +18,34 @@ interface PostData {
   }[];
 }
 
-export function getPostsFiles(): string[] {
-  return fs.readdirSync(postsDirectory);
+export function getPostsFiles(dir: string = postsDirectory): string[] {
+  const directories = fs
+    .readdirSync(postsDirectory, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
+
+  let postsFiles: string[] = [];
+  directories.forEach((dir) => {
+    const dirPath = path.join(postsDirectory, dir);
+    const files = fs.readdirSync(dirPath);
+    const fullPaths = files.map((file) => path.join(dir, file));
+    postsFiles = [...postsFiles, ...fullPaths];
+  });
+
+  return postsFiles;
+  // return fs.readdirSync(postsDirectory);
 }
 
 export function getPostData(postIdentifier: string): PostData {
   const postSlug = postIdentifier.replace(/\.md$/, '');
   const filePath = path.join(postsDirectory, `${postSlug}.md`);
   const fileContent = fs.readFileSync(filePath, 'utf-8');
-
   const { data, content } = matter(fileContent);
+  const series = path.dirname(postSlug);
 
   const postData: PostData = {
-    slug: postSlug.replace(/\.md$/, ''), // remove .md extension
+    slug: path.basename(postSlug),
+    series: series === '.' ? undefined : series,
     title: data.title,
     date: data.date,
     content: content,
