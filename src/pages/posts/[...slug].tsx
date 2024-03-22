@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
 
 import PostContent from '@/components/posts/PostDetail/PostContent';
 
-import { getPostData, getPostsFiles } from '@/lib/postUtils';
+import { getPostsFiles, getPostData } from '@/lib/postUtils';
 
 export default function PostDetailPage(props: any) {
   const { post } = props;
+  console.log('post: ', post);
 
   return (
     <div className="flex min-h-screen flex-col items-center ">
@@ -15,9 +15,9 @@ export default function PostDetailPage(props: any) {
   );
 }
 
-export async function getStaticProps(context: any) {
+export async function getStaticProps(context: { params: { slug: string[] } }) {
   const { params } = context;
-  const { slug } = params;
+  const slug = params.slug;
 
   const postData = getPostData(slug);
 
@@ -32,10 +32,13 @@ export async function getStaticProps(context: any) {
 export async function getStaticPaths() {
   const postFilenames = getPostsFiles();
 
-  const slugs = postFilenames.map((fileName) => fileName.replace(/\.md$/, ''));
+  const paths = postFilenames.map((fileName) => {
+    const slug = fileName.replace(/\.md$/, '').split('/');
+    return { params: { slug } };
+  });
 
   return {
-    paths: slugs.map((slug) => ({ params: { slug } })),
+    paths,
     fallback: true,
   };
 }

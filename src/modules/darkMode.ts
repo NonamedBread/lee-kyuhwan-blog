@@ -5,19 +5,8 @@ export type DarkModeState = {
   systemTheme: 'dark' | 'light' | 'not-ready';
 };
 
-const getInitialTheme = () => {
-  if (typeof window !== 'undefined') {
-    return localStorage.theme === 'dark'
-      ? 'dark'
-      : !('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
-  }
-  return 'light';
-};
-
 const initialState: DarkModeState = {
-  theme: getInitialTheme(),
+  theme: 'default',
   systemTheme: 'not-ready',
 };
 
@@ -34,7 +23,19 @@ const darkMode = createSlice({
     setSystemTheme(state, action: PayloadAction<'dark' | 'light'>) {
       state.systemTheme = action.payload;
     },
+    initializeTheme(state) {
+      if (typeof window !== 'undefined') {
+        state.theme =
+          localStorage.theme === 'dark'
+            ? 'dark'
+            : !('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+      }
+    },
   },
 });
+
+export const { enableDarkMode, enableLightMode, setSystemTheme, initializeTheme } = darkMode.actions;
 
 export default darkMode;

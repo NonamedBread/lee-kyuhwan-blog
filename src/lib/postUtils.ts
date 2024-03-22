@@ -36,7 +36,7 @@ export function getPostsFiles(dir: string = postsDirectory): string[] {
   // return fs.readdirSync(postsDirectory);
 }
 
-export function getPostData(postIdentifier: string): PostData {
+export function getAllPostData(postIdentifier: string): PostData {
   const postSlug = postIdentifier.replace(/\.md$/, '');
   const filePath = path.join(postsDirectory, `${postSlug}.md`);
   const fileContent = fs.readFileSync(filePath, 'utf-8');
@@ -51,16 +51,34 @@ export function getPostData(postIdentifier: string): PostData {
     content: content,
     isFeatured: data.isFeatured || false,
     isDraft: data.isDraft || false,
-    tags: data.tags.map((tag: string) => ({ name: tag, count: 1 })),
+    tags: data?.tags.map((tag: string) => ({ name: tag, count: 1 })),
   };
 
   return postData;
 }
 
+export function getPostData(slug: string[]) {
+  // slug 배열을 '/'로 연결하여 파일 경로를 생성합니다.
+  const filePath = path.join(process.cwd(), 'posts', ...slug) + '.md';
+
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`File not found: ${filePath}`);
+  }
+
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  const { data, content } = matter(fileContent);
+
+  return {
+    slug,
+    content,
+    ...data,
+  };
+}
+
 export function getAllPosts(): PostData[] {
   const postFiles = getPostsFiles();
 
-  const allPosts = postFiles.map(getPostData);
+  const allPosts = postFiles.map(getAllPostData);
 
   const sortedPosts = allPosts.sort((postA: PostData, postB: PostData) => new Date(postB.date).getTime() - new Date(postA.date).getTime());
   const draftPosts = sortedPosts.filter((post) => process.env.NODE_ENV === 'development' || !post.isDraft);
