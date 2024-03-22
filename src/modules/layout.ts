@@ -22,4 +22,6 @@ const layout = createSlice({
   },
 });
 
+export const { toggleSideTap, setSideTap } = layout.actions;
+
 export default layout;

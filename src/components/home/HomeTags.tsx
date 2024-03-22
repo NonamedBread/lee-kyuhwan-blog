@@ -3,14 +3,14 @@ interface HomeTagsProps {
     name: string;
     count: number;
   }[];
-
+  handleSideTap?: (value: boolean) => void;
   handleTagClick: (tag: string) => void;
   size?: 'sm' | 'md' | 'lg';
   bgColor?: 'blue' | 'red' | 'green' | 'slate';
   textColor?: 'white' | 'black' | 'gray';
 }
 
-export default function HomeTags({ tags, handleTagClick, size = 'md', bgColor = 'blue', textColor = 'white' }: HomeTagsProps) {
+export default function HomeTags({ tags, handleTagClick, handleSideTap, size = 'md', bgColor = 'blue', textColor = 'white' }: HomeTagsProps) {
   const sizeClasses = {
     sm: 'px-2 py-1',
     md: 'px-4 py-2',
@@ -18,10 +18,10 @@ export default function HomeTags({ tags, handleTagClick, size = 'md', bgColor = 
   };
 
   const bgColorClasses = {
-    blue: 'bg-blue-500 hover:bg-blue-600 dark:bg-customGreay-600 dark:hover:bg-customGreay-700',
-    red: 'bg-red-500 hover:bg-red-600 dark:bg-customGreay-600 dark:hover:bg-customGreay-700',
-    green: 'bg-green-500 hover:bg-green-600 dark:bg-customGreay-600 dark:hover:bg-customGreay-700',
-    slate: 'bg-slate-200 hover:bg-slate-300 dark:bg-customGreay-500 dark:hover:bg-customGreay-600',
+    blue: 'bg-customBlue-500 hover:bg-customBlue-600',
+    red: 'bg-customRed-500 hover:bg-customRed-600',
+    green: 'bg-customGreen-500 hover:bg-customGreen-600',
+    slate: 'bg-slate-200 hover:bg-slate-300 ',
   };
 
   const textColorClasses = {
@@ -41,9 +41,14 @@ export default function HomeTags({ tags, handleTagClick, size = 'md', bgColor = 
       {tags.map((tag) => (
         <button
           key={tag.name}
-          onClick={() => handleTagClick(tag.name)}
+          onClick={() => {
+            handleTagClick(tag.name);
+            handleSideTap && handleSideTap(true);
+          }}
           className={`m-1 rounded-full transition-all duration-300 ease-in-out hover:cursor-pointer
-          ${sizeClasses[size]} ${bgColorClasses[bgColor]} ${textColorClasses[textColor]} ${textSizeClasses[size]}`}
+          dark:bg-customGreay-600 dark:hover:bg-customGreay-700
+          ${sizeClasses[size]} ${bgColorClasses[bgColor]} ${textColorClasses[textColor]} ${textSizeClasses[size]}
+          `}
         >
           {tag.name}
         </button>
