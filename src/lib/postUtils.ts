@@ -57,6 +57,36 @@ export function getAllPostData(postIdentifier: string): PostData {
   return postData;
 }
 
+export function getAllPosts(): PostData[] {
+  const postFiles = getPostsFiles();
+
+  const allPosts = postFiles.map(getAllPostData);
+  const sortedPosts = allPosts.sort((postA: PostData, postB: PostData) => new Date(postB.date).getTime() - new Date(postA.date).getTime());
+  const draftPosts = sortedPosts.filter((post) => process.env.NODE_ENV === 'development' || !post.isDraft);
+
+  return draftPosts;
+}
+
+export function getPostsGroupedBySeries(): { [series: string]: PostData[] } {
+  const allPosts = getAllPosts();
+
+  const postsGroupedBySeries = allPosts.reduce(
+    (groupedPosts, post) => {
+      const series = post.series;
+      if (series !== undefined) {
+        if (!groupedPosts[series]) {
+          groupedPosts[series] = [];
+        }
+        groupedPosts[series].push(post);
+      }
+      return groupedPosts;
+    },
+    {} as { [series: string]: PostData[] },
+  );
+
+  return postsGroupedBySeries;
+}
+
 export function getPostData(slug: string[]) {
   // slug 배열을 '/'로 연결하여 파일 경로를 생성합니다.
   const filePath = path.join(process.cwd(), 'posts', ...slug) + '.md';
@@ -74,25 +104,6 @@ export function getPostData(slug: string[]) {
     ...data,
   };
 }
-
-export function getAllPosts(): PostData[] {
-  const postFiles = getPostsFiles();
-
-  const allPosts = postFiles.map(getAllPostData);
-
-  const sortedPosts = allPosts.sort((postA: PostData, postB: PostData) => new Date(postB.date).getTime() - new Date(postA.date).getTime());
-  const draftPosts = sortedPosts.filter((post) => process.env.NODE_ENV === 'development' || !post.isDraft);
-
-  return draftPosts;
-}
-
-// export function getFeaturedPosts(): PostData[] {
-//   const allPosts = getAllPosts();
-
-//   const featuredPosts = allPosts.filter((post) => post.isFeatured);
-
-//   return featuredPosts;
-// }
 
 export function getAllTags(): PostData['tags'] {
   const allPosts = getAllPosts();
