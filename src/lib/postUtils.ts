@@ -57,20 +57,14 @@ export function getAllPostData(postIdentifier: string): PostData {
   return postData;
 }
 
-export function getAllPosts(): PostData[] {
+export function getPostsGroupedBySeries(): { seriesName: string; posts: PostData[] }[] {
   const postFiles = getPostsFiles();
 
   const allPosts = postFiles.map(getAllPostData);
   const sortedPosts = allPosts.sort((postA: PostData, postB: PostData) => new Date(postB.date).getTime() - new Date(postA.date).getTime());
   const draftPosts = sortedPosts.filter((post) => process.env.NODE_ENV === 'development' || !post.isDraft);
 
-  return draftPosts;
-}
-
-export function getPostsGroupedBySeries(): { [series: string]: PostData[] } {
-  const allPosts = getAllPosts();
-
-  const postsGroupedBySeries = allPosts.reduce(
+  const postsGroupedBySeries = draftPosts.reduce(
     (groupedPosts, post) => {
       const series = post.series;
       if (series !== undefined) {
@@ -84,7 +78,12 @@ export function getPostsGroupedBySeries(): { [series: string]: PostData[] } {
     {} as { [series: string]: PostData[] },
   );
 
-  return postsGroupedBySeries;
+  const postsGroupedBySeriesArray = Object.entries(postsGroupedBySeries).map(([seriesName, posts]) => ({
+    seriesName,
+    posts,
+  }));
+
+  return postsGroupedBySeriesArray;
 }
 
 export function getPostData(slug: string[]) {
@@ -105,24 +104,24 @@ export function getPostData(slug: string[]) {
   };
 }
 
-export function getAllTags(): PostData['tags'] {
-  const allPosts = getAllPosts();
+// export function getAllTags(): PostData['tags'] {
+//   const allPosts = getAllPosts();
 
-  const allTags = allPosts.flatMap((post) => post.tags.map((tag) => tag.name));
+//   const allTags = allPosts.flatMap((post) => post.tags.map((tag) => tag.name));
 
-  // 태그의 빈도를 계산합니다.
-  const tagFrequency: { [tag: string]: number } = {};
-  allTags.forEach((tag) => {
-    if (tag in tagFrequency) {
-      tagFrequency[tag]++;
-    } else {
-      tagFrequency[tag] = 1;
-    }
-  });
+//   // 태그의 빈도를 계산합니다.
+//   const tagFrequency: { [tag: string]: number } = {};
+//   allTags.forEach((tag) => {
+//     if (tag in tagFrequency) {
+//       tagFrequency[tag]++;
+//     } else {
+//       tagFrequency[tag] = 1;
+//     }
+//   });
 
-  // 빈도에 따라 태그를 정렬합니다.
-  const sortedTags = Object.keys(tagFrequency).sort((a, b) => tagFrequency[b] - tagFrequency[a]);
+//   // 빈도에 따라 태그를 정렬합니다.
+//   const sortedTags = Object.keys(tagFrequency).sort((a, b) => tagFrequency[b] - tagFrequency[a]);
 
-  // 각 태그를 Tag 객체로 변환합니다.
-  return sortedTags.map((tag) => ({ name: tag, count: tagFrequency[tag] }));
-}
+//   // 각 태그를 Tag 객체로 변환합니다.
+//   return sortedTags.map((tag) => ({ name: tag, count: tagFrequency[tag] }));
+// }

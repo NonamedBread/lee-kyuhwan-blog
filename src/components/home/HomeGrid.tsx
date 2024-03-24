@@ -5,7 +5,7 @@ import PostItem from '../posts/PostItem';
 import HomeSearch from './HomeSearch';
 import Taps from '@/components/home/Taps';
 
-import { setSearchResults } from '@/modules/posts';
+// import { setSearchResults } from '@/modules/posts';
 
 interface Props {
   posts: {
@@ -31,7 +31,7 @@ export default function HomeGrid({ posts, topTags }: Props) {
   const handleTagClick = useCallback(
     (tag: string) => {
       setSelectedTag(tag);
-      dispatch(setSearchResults(tag));
+      // dispatch(setSearchResults(tag));
     },
     [dispatch],
   );
