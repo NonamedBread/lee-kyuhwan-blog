@@ -1,3 +1,4 @@
+import React, { useMemo } from 'react';
 import { GetStaticProps } from 'next';
 import { useDispatch } from 'react-redux';
 
@@ -9,13 +10,16 @@ import { useEffect } from 'react';
 
 interface Series {
   [series: string]: {
-    slug: string;
-    title: string;
-    date: string;
-    content: string;
-    tags: {
-      name: string;
-      count: number;
+    seriesName: string;
+    posts: {
+      slug: string;
+      title: string;
+      date: string;
+      content: string;
+      tags: {
+        name: string;
+        count: number;
+      }[];
     }[];
   }[];
 }
@@ -24,7 +28,6 @@ export default function Home({ series }: Series) {
   const dispatch = useDispatch();
 
   console.log('series:', series);
-
   useEffect(() => {
     dispatch(setAllSeries(series));
   }, [dispatch, series]);

@@ -11,7 +11,10 @@ type Post = {
   }[];
 };
 
-type Series = Post[];
+type Series = {
+  seriesName: string;
+  posts: Post[];
+}[];
 
 export type Tag = {
   name: string;

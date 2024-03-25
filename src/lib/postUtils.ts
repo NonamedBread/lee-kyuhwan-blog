@@ -4,6 +4,10 @@ import matter from 'gray-matter';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
+interface Series {
+  seriesName: string;
+  posts: PostData[];
+}
 interface PostData {
   slug: string;
   series?: string;
@@ -84,6 +88,11 @@ export function getPostsGroupedBySeries(): { seriesName: string; posts: PostData
   }));
 
   return postsGroupedBySeriesArray;
+}
+
+export function getAllPostsFromSeries(series: Series[]) {
+  console.log('series:', series);
+  return series.flatMap((s) => s.posts);
 }
 
 export function getPostData(slug: string[]) {
