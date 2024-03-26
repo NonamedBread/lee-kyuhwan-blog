@@ -6,25 +6,59 @@ import HomeSearch from './HomeSearch';
 import Taps from '@/components/home/Taps';
 
 // import { setSearchResults } from '@/modules/posts';
-
-interface Props {
-  posts: {
-    slug: string;
-    title: string;
-    date: string;
-    content: string;
-    tags: {
-      name: string;
-      count: number;
-    }[];
-  }[];
-  topTags: {
-    name: string;
-    count: number;
-  }[];
+interface Tag {
+  name: string;
+  count: number;
 }
 
-export default function HomeGrid({ posts, topTags }: Props) {
+interface Post {
+  slug: string;
+  series: string;
+  title: string;
+  date: string;
+  content: string;
+  isFeatured: boolean;
+  isDraft: boolean;
+  tags: Tag[];
+}
+
+interface Series {
+  seriesName: string;
+  posts: Post[];
+}
+
+// 모든 posts를 구하는 함수
+function getAllPosts(series: Series[]) {
+  let allPosts: Post[] = [];
+  for (let seriesName in series) {
+    allPosts = [...allPosts, ...series[seriesName].posts];
+  }
+  return allPosts;
+}
+
+// topTags를 구하는 함수
+// function getTopTags(posts: any[]) {
+//   const tagCount: { [key: string]: number } = {};
+
+//   posts.forEach((post) => {
+//     post.tags.forEach((tag: any) => {
+//       if (tagCount[tag.name]) {
+//         tagCount[tag.name]++;
+//       } else {
+//         tagCount[tag.name] = 1;
+//       }
+//     });
+//   });
+
+//   const topTags = Object.entries(tagCount)
+//     .sort((a, b) => b[1] - a[1])
+//     .slice(0, 5)
+//     .map(([name, count]) => ({ name, count }));
+
+//   return topTags;
+// }
+
+export default function HomeGrid({ series }: { series: Series[] }) {
   const dispatch = useDispatch();
   const [selectedTag, setSelectedTag] = useState<string>('');
 
@@ -35,6 +69,19 @@ export default function HomeGrid({ posts, topTags }: Props) {
     },
     [dispatch],
   );
+
+  console.log('series', series);
+
+  const posts = getAllPosts(series);
+  // const topTags = getTopTags(posts);
+
+  const topTags = [
+    { name: 'React', count: 5 },
+    { name: 'Next.js', count: 4 },
+    { name: 'TypeScript', count: 3 },
+    { name: 'JavaScript', count: 2 },
+    { name: 'CSS', count: 1 },
+  ];
 
   // TODO : 게시글 갯수마다 광고 && 0개 이하일 경우 게시글이 없다는 문구와 광고 하나
   return (

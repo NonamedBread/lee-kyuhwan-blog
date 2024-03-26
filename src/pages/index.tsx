@@ -27,7 +27,6 @@ interface Series {
 export default function Home({ series }: Series) {
   const dispatch = useDispatch();
 
-  console.log('series:', series);
   useEffect(() => {
     dispatch(setAllSeries(series));
   }, [dispatch, series]);
