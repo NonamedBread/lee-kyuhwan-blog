@@ -37,26 +37,26 @@ function getAllPosts(series: Series[]) {
 }
 
 // topTags를 구하는 함수
-// function getTopTags(posts: any[]) {
-//   const tagCount: { [key: string]: number } = {};
+function getTopTags(posts: any[]) {
+  const tagCount: { [key: string]: number } = {};
 
-//   posts.forEach((post) => {
-//     post.tags.forEach((tag: any) => {
-//       if (tagCount[tag.name]) {
-//         tagCount[tag.name]++;
-//       } else {
-//         tagCount[tag.name] = 1;
-//       }
-//     });
-//   });
+  posts.forEach((post) => {
+    post.tags.forEach((tag: any) => {
+      if (tagCount[tag.name]) {
+        tagCount[tag.name]++;
+      } else {
+        tagCount[tag.name] = 1;
+      }
+    });
+  });
 
-//   const topTags = Object.entries(tagCount)
-//     .sort((a, b) => b[1] - a[1])
-//     .slice(0, 5)
-//     .map(([name, count]) => ({ name, count }));
+  const topTags = Object.entries(tagCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([name, count]) => ({ name, count }));
 
-//   return topTags;
-// }
+  return topTags;
+}
 
 export default function HomeGrid({ series }: { series: Series[] }) {
   const dispatch = useDispatch();
@@ -70,18 +70,8 @@ export default function HomeGrid({ series }: { series: Series[] }) {
     [dispatch],
   );
 
-  console.log('series', series);
-
   const posts = getAllPosts(series);
-  // const topTags = getTopTags(posts);
-
-  const topTags = [
-    { name: 'React', count: 5 },
-    { name: 'Next.js', count: 4 },
-    { name: 'TypeScript', count: 3 },
-    { name: 'JavaScript', count: 2 },
-    { name: 'CSS', count: 1 },
-  ];
+  const topTags = getTopTags(posts);
 
   // TODO : 게시글 갯수마다 광고 && 0개 이하일 경우 게시글이 없다는 문구와 광고 하나
   return (
