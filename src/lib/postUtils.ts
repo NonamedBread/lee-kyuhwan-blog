@@ -91,7 +91,6 @@ export function getPostsGroupedBySeries(): { seriesName: string; posts: PostData
 }
 
 export function getAllPostsFromSeries(series: Series[]) {
-  console.log('series:', series);
   return series.flatMap((s) => s.posts);
 }
 

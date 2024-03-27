@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import HomeGrid from '../home/HomeGrid';
 
 export default function Posts() {
-  const series = useSelector((state: any) => state.data.series);
+  const series = useSelector((state: any) => state.data.filteredSeries);
 
   return (
     <>

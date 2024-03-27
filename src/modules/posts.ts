@@ -23,26 +23,12 @@ export type Tag = {
 
 export type PostsState = {
   series: Series;
-  // posts: {
-  //   allPosts: Post[];
-  //   filteredPosts: Post[];
-  // };
-  // tags: {
-  //   allTags: Tag[];
-  //   topTags: Tag[];
-  // };
+  filteredSeries: Series;
 };
 
 const initialState: PostsState = {
   series: [],
-  // posts: {
-  //   allPosts: [],
-  //   filteredPosts: [],
-  // },
-  // tags: {
-  //   allTags: [],
-  //   topTags: [],
-  // },
+  filteredSeries: [],
 };
 
 const data = createSlice({
@@ -51,34 +37,24 @@ const data = createSlice({
   reducers: {
     setAllSeries(state, action: PayloadAction<Series>) {
       state.series = action.payload;
+      state.filteredSeries = action.payload;
     },
-
-    // setAllPosts(state, action: PayloadAction<Post[]>) {
-    //   state.posts.allPosts = action.payload;
-    //   state.posts.filteredPosts = action.payload;
-    // },
-    // setAllTags(state, action: PayloadAction<Tag[]>) {
-    //   state.tags.allTags = action.payload;
-    //   state.tags.topTags = action.payload.slice(0, 10);
-    // },
-    // setSearchResults(state, action: PayloadAction<string>) {
-    //   const searchTerm = action.payload.toLowerCase();
-    //   state.posts.filteredPosts = state.posts.allPosts.filter((post) => {
-    //     if (!searchTerm) return true;
-    //     return post.tags.some((tag) => {
-    //       return tag.name.toLowerCase().includes(searchTerm);
-    //     });
-    //   });
-
-    //   state.tags.topTags = state.tags.allTags
-    //     .filter((tag) => {
-    //       return tag.name.toLowerCase().includes(searchTerm);
-    //     })
-    //     .slice(0, 10);
-    // },
+    setFilteredSeries(state, action: PayloadAction<string>) {
+      const selectedTag = action.payload.toLowerCase();
+      state.filteredSeries = state.series
+        .map((series) => {
+          const filteredPosts = series.posts.filter((post) => {
+            return post.tags.some((tag) => {
+              return tag.name.toLowerCase().includes(selectedTag);
+            });
+          });
+          return { ...series, posts: filteredPosts };
+        })
+        .filter((series) => series.posts.length > 0); // 게시물이 없는 시리즈는 제거
+    },
   },
 });
 
-export const { setAllSeries } = data.actions;
+export const { setAllSeries, setFilteredSeries } = data.actions;
 
 export default data;
