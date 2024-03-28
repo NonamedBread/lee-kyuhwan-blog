@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
-import HomeTags from './HomeTags';
+import HomeTag from './HomeTag';
 
 import { setSideTap } from '@/modules/layout';
 
@@ -48,7 +48,7 @@ export default function HomeSearch({ topTags, selectedTag, handleTagClick }: Sea
         )}
       </div>
       <div className="mt-4">
-        <HomeTags tags={topTags} handleTagClick={handleTagClick} handleSideTap={handleSideTap} />
+        <HomeTag tags={topTags} handleTagClick={handleTagClick} handleSideTap={handleSideTap} />
       </div>
     </div>
   );

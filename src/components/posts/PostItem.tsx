@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 
-import HomeTags from '../home/HomeTags';
+import HomeTags from '../home/HomeTag';
 
 interface PostProps {
   post: {

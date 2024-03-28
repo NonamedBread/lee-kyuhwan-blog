@@ -10,7 +10,7 @@ interface HomeTagsProps {
   textColor?: 'white' | 'black' | 'gray';
 }
 
-export default function HomeTags({ tags, handleTagClick, handleSideTap, size = 'md', bgColor = 'blue', textColor = 'white' }: HomeTagsProps) {
+export default function HomeTag({ tags, handleTagClick, handleSideTap, size = 'md', bgColor = 'blue', textColor = 'white' }: HomeTagsProps) {
   const sizeClasses = {
     sm: 'px-2 py-1',
     md: 'px-4 py-2',
