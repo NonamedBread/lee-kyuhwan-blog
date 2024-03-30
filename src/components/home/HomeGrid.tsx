@@ -5,7 +5,7 @@ import PostItem from '../posts/PostItem';
 import HomeSearch from './HomeSearch';
 import Taps from '@/components/home/Taps';
 
-import { setFilteredSeries } from '@/modules/posts';
+import { filterSeriesByTag } from '@/modules/posts';
 interface Tag {
   name: string;
   count: number;
@@ -62,7 +62,7 @@ export default function HomeGrid({ series }: { series: Series[] }) {
   const handleTagClick = useCallback(
     (tag: string) => {
       setSelectedTag(tag);
-      dispatch(setFilteredSeries(tag));
+      dispatch(filterSeriesByTag(tag));
     },
     [dispatch],
   );

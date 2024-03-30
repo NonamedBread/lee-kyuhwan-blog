@@ -39,7 +39,7 @@ const data = createSlice({
       state.series = action.payload;
       state.filteredSeries = action.payload;
     },
-    setFilteredSeries(state, action: PayloadAction<string>) {
+    filterSeriesByTag(state, action: PayloadAction<string>) {
       const selectedTag = action.payload.toLowerCase();
       state.filteredSeries = state.series
         .map((series) => {
@@ -55,6 +55,6 @@ const data = createSlice({
   },
 });
 
-export const { setAllSeries, setFilteredSeries } = data.actions;
+export const { setAllSeries, filterSeriesByTag } = data.actions;
 
 export default data;

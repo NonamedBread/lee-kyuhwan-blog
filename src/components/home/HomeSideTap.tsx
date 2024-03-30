@@ -39,7 +39,7 @@ export default function HomeSideTap({ isHeaderVisible, sideTap }: Props) {
     setDropdownOpen((prevState) => ({ ...prevState, [seriesName]: !prevState[seriesName] }));
   };
 
-  const handleTagClick = (tagName: string) => {
+  const handleSeriesClick = (tagName: string) => {
     // TODO: Implement search functionality here
     console.log(`Searching posts with tag: ${tagName}`);
   };
