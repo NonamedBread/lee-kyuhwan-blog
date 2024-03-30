@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 
 import { Tooltip } from '@mui/material';
 import TagIcon from '@mui/icons-material/Tag';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { blueGrey } from '@mui/material/colors';
+
+import Dropdown from '../common/Dropdown';
 
 interface Props {
   sideTap: boolean;
@@ -35,12 +35,9 @@ export default function HomeSideTap({ isHeaderVisible, sideTap }: Props) {
     console.log(`Searching posts with tag: ${tagName}`);
   };
 
-  console.log('series:', series);
-
   const borderClasses = `border-b-2 border-r-2 border-t-2`;
   const roundedClasses = `rounded-b-lg rounded-r-lg rounded-t-lg`;
-  // TODO: 시리즈 클릭시 해당 시리즈의 포스트들을 보여주는 기능 구현, 슬라이드 인/아웃 애니메이션 구현
-
+  // TODO: 시리즈 클릭시 해당 시리즈의 포스트들을 보여주는 기능 구현
   return (
     <div
       className={`${animationClass} fixed left-0 top-0 z-50  ${isHeaderVisible ? '' : 'mt-[10dvh]'} h-screen w-[18dvw]  transition-all duration-300 ease-in-out `}
@@ -55,27 +52,15 @@ export default function HomeSideTap({ isHeaderVisible, sideTap }: Props) {
           </div>
           <div className="w-full border-b-2  border-gray-300"></div>
         </div>
-        {series.map((seriesItem: any) => (
-          <div className="flex w-full flex-col gap-2" key={seriesItem.seriesName}>
-            <div
-              key={seriesItem.seriesName}
-              className="flex cursor-pointer items-center gap-1 
-            "
-              onClick={() => toggleDropdown(seriesItem.seriesName)}
-            >
-              <ExpandMoreIcon className={`transform text-2xl ${dropdownOpen[seriesItem.seriesName] ? '' : '-rotate-90'}`} />
-              <h2 className="text-xl font-bold">{seriesItem.seriesName}</h2>
-            </div>
-            {dropdownOpen[seriesItem.seriesName] &&
-              seriesItem.posts.map((post: { title: string; slug: string }) => (
-                <div key={post.title} className="" style={{ cursor: 'pointer' }}>
-                  <Tooltip title={post.title} placement="top">
-                    <h3 className="overflow-hidden overflow-ellipsis whitespace-nowrap text-base">{post.title}</h3>
-                  </Tooltip>
-                </div>
-              ))}
+        {series.map((seriesItem: any, index: number) => (
+          <>
+            <Dropdown
+              visibility={dropdownOpen[seriesItem.seriesName]}
+              items={seriesItem}
+              onClickEvent={() => toggleDropdown(seriesItem.seriesName)}
+            />
             <div className="w-full border-b-2  border-gray-300"></div>
-          </div>
+          </>
         ))}
       </div>
     </div>

@@ -11,7 +11,7 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import darkMode from '@/modules/darkMode';
 import layout from '@/modules/layout';
 
-import ToggleSwitch from '../ToggleSwitch';
+import ToggleSwitch from '../common/ToggleSwitch';
 
 interface Props {
   theme: string;
