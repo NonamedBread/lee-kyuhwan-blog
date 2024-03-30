@@ -1,14 +1,21 @@
+import React, { useState } from 'react';
+
 import { useSelector } from 'react-redux';
 
 import HomeGrid from '../home/HomeGrid';
 
 export default function Posts() {
-  const posts = useSelector((state: any) => state.data.posts.filteredPosts);
-  const topTags = useSelector((state: any) => state.data.tags.topTags);
+  const series = useSelector((state: any) => state.data.filteredSeries);
 
   return (
     <>
-      <HomeGrid posts={posts} topTags={topTags} />
+      <HomeGrid series={series} />
     </>
   );
+}
+
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
 }

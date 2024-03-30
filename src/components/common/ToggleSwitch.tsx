@@ -15,7 +15,7 @@ const getThemeColors = (theme: string | undefined) => {
   switch (theme) {
     case 'darkMode':
       labelColor = 'bg-yellow-500 dark:bg-customBlue-100';
-      spanColor = 'bg-slate-50 dark:bg-customGreay-600';
+      spanColor = 'bg-customGreay-100 dark:bg-customGreay-600';
       iconColor = 'text-yellow-500 dark:text-customBlue-200';
       break;
     case 'sideTap':
@@ -54,7 +54,7 @@ export default function ToggleSwitch({ id, icons, checked, toggleAction, iconThe
         <input type="checkbox" id={id} className="cusror-pointer sr-only" checked={checked} onChange={toggleAction} />
         {/* TODO : https://velog.io/@yijaee/serverside-html-matching */}
         <span
-          className={`absolute ${spanColor} left-0 flex h-14 w-14 transform items-center justify-center rounded-full shadow-lg transition-transform duration-300 ${checked ? 'translate-x-full' : 'translate-x-0'}`}
+          className={`absolute ${spanColor} -left-2 flex h-14 w-14 transform items-center justify-center rounded-full shadow-lg transition-transform duration-300 ${checked ? 'translate-x-full' : 'translate-x-0'}`}
         >
           {mounted && <Icon className={`h-8 w-8 ${iconColor}`} />}
         </span>

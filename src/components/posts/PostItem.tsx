@@ -2,10 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 
-import HomeTags from '../home/HomeTags';
+import HomeTags from '../home/HomeTag';
 
 interface PostProps {
   post: {
+    series?: string;
     slug: string;
     title: string;
     date: string;
@@ -25,6 +26,8 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
     day: 'numeric',
   });
 
+  const href = `/posts/${post.series ? `${post.series}/${post.slug}` : post.slug}`;
+
   return (
     <div className="w-full p-2 ">
       <div
@@ -33,11 +36,11 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
       >
         <div className="flex w-full flex-row">
           <div className="relative flex w-3/5 flex-col items-start justify-center p-4">
-            <Link href={{ pathname: '/posts/[slug]', query: { slug: post.slug } }}>
+            <Link href={{ pathname: `${href}` }}>
               <h2 className="mb-2 overflow-hidden overflow-ellipsis whitespace-nowrap font-bold">{post.title}</h2>
             </Link>
             <div className="overflow-hidden sm:line-clamp-1 md:line-clamp-1 lg:line-clamp-2 xl:line-clamp-4">
-              <Link href={{ pathname: '/posts/[slug]', query: { slug: post.slug } }}>
+              <Link href={{ pathname: `${href}` }}>
                 <ReactMarkdown
                   components={{
                     p(paragraph: any) {
@@ -55,7 +58,7 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
             </div>
           </div>
           <div className="relative w-2/5">
-            <Link href={{ pathname: '/posts/[slug]', query: { slug: post.slug } }}>
+            <Link href={{ pathname: `${href}` }}>
               <Image className="object-cover" src="/images/dummy_image.png" alt={post.title} width={500} height={300} />
             </Link>
           </div>

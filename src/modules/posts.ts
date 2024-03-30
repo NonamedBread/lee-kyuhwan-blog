@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type Post = {
+type Post = {
   slug: string;
   title: string;
   date: string;
@@ -11,63 +11,50 @@ export type Post = {
   }[];
 };
 
+type Series = {
+  seriesName: string;
+  posts: Post[];
+}[];
+
 export type Tag = {
   name: string;
   count: number;
 };
 
 export type PostsState = {
-  posts: {
-    allPosts: Post[];
-    filteredPosts: Post[];
-  };
-  tags: {
-    allTags: Tag[];
-    topTags: Tag[];
-  };
+  series: Series;
+  filteredSeries: Series;
 };
 
 const initialState: PostsState = {
-  posts: {
-    allPosts: [],
-    filteredPosts: [],
-  },
-  tags: {
-    allTags: [],
-    topTags: [],
-  },
+  series: [],
+  filteredSeries: [],
 };
 
 const data = createSlice({
   name: 'data',
   initialState: initialState,
   reducers: {
-    setAllPosts(state, action: PayloadAction<Post[]>) {
-      state.posts.allPosts = action.payload;
-      state.posts.filteredPosts = action.payload;
+    setAllSeries(state, action: PayloadAction<Series>) {
+      state.series = action.payload;
+      state.filteredSeries = action.payload;
     },
-    setAllTags(state, action: PayloadAction<Tag[]>) {
-      state.tags.allTags = action.payload;
-      state.tags.topTags = action.payload.slice(0, 10);
-    },
-    setSearchResults(state, action: PayloadAction<string>) {
-      const searchTerm = action.payload.toLowerCase();
-      state.posts.filteredPosts = state.posts.allPosts.filter((post) => {
-        if (!searchTerm) return true;
-        return post.tags.some((tag) => {
-          return tag.name.toLowerCase().includes(searchTerm);
-        });
-      });
-
-      state.tags.topTags = state.tags.allTags
-        .filter((tag) => {
-          return tag.name.toLowerCase().includes(searchTerm);
+    filterSeriesByTag(state, action: PayloadAction<string>) {
+      const selectedTag = action.payload.toLowerCase();
+      state.filteredSeries = state.series
+        .map((series) => {
+          const filteredPosts = series.posts.filter((post) => {
+            return post.tags.some((tag) => {
+              return tag.name.toLowerCase().includes(selectedTag);
+            });
+          });
+          return { ...series, posts: filteredPosts };
         })
-        .slice(0, 10);
+        .filter((series) => series.posts.length > 0); // 게시물이 없는 시리즈는 제거
     },
   },
 });
 
-export const { setAllPosts, setAllTags, setSearchResults } = data.actions;
+export const { setAllSeries, filterSeriesByTag } = data.actions;
 
 export default data;

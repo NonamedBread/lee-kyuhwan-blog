@@ -32,13 +32,29 @@
     transform: translateY(0);
   }
 }
-
 @keyframes slide-out {
   0% {
     transform: translateY(0);
   }
   100% {
     transform: translateY(-100%);
+  }
+}
+
+@keyframes slide-in-sideTap {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes slide-out-sideTap {
+  0% {
+    max-height: 100dvh;
+  }
+  100% {
+    max-height: 0;
   }
 }
 
@@ -66,6 +82,14 @@
 
 .slide-out {
   animation: slide-out 0.4s forwards;
+}
+
+.slide-in-sideTap {
+  animation: slide-in-sideTap 0.6s forwards;
+}
+
+.slide-out-sideTap {
+  animation: slide-out-sideTap 0.6s forwards;
 }
 
 .slide-in-horizontal {

@@ -5,33 +5,64 @@ import PostItem from '../posts/PostItem';
 import HomeSearch from './HomeSearch';
 import Taps from '@/components/home/Taps';
 
-import { setSearchResults } from '@/modules/posts';
-
-interface Props {
-  posts: {
-    slug: string;
-    title: string;
-    date: string;
-    content: string;
-    tags: {
-      name: string;
-      count: number;
-    }[];
-  }[];
-  topTags: {
-    name: string;
-    count: number;
-  }[];
+import { filterSeriesByTag } from '@/modules/posts';
+interface Tag {
+  name: string;
+  count: number;
 }
 
-export default function HomeGrid({ posts, topTags }: Props) {
+interface Post {
+  slug: string;
+  series: string;
+  title: string;
+  date: string;
+  content: string;
+  isFeatured: boolean;
+  isDraft: boolean;
+  tags: Tag[];
+}
+
+interface Series {
+  seriesName: string;
+  posts: Post[];
+}
+
+function getAllPosts(series: Series[]) {
+  let allPosts: Post[] = [];
+  for (let seriesName in series) {
+    allPosts = [...allPosts, ...series[seriesName].posts];
+  }
+  return allPosts;
+}
+
+function getTags(posts: Post[]): Tag[] {
+  const tagCount: { [key: string]: number } = {};
+
+  posts.forEach((post) => {
+    post.tags.forEach((tag) => {
+      if (tagCount[tag.name]) {
+        tagCount[tag.name]++;
+      } else {
+        tagCount[tag.name] = 1;
+      }
+    });
+  });
+
+  return Object.entries(tagCount).map(([name, count]) => ({ name, count: Number(count) }));
+}
+
+export default function HomeGrid({ series }: { series: Series[] }) {
   const dispatch = useDispatch();
   const [selectedTag, setSelectedTag] = useState<string>('');
+  const posts = getAllPosts(series);
+  const tags = getTags(posts);
+
+  const topTags = tags.sort((a: { count: number }, b: { count: number }) => b.count - a.count).slice(0, 10);
 
   const handleTagClick = useCallback(
     (tag: string) => {
       setSelectedTag(tag);
-      dispatch(setSearchResults(tag));
+      dispatch(filterSeriesByTag(tag));
     },
     [dispatch],
   );
@@ -46,6 +77,7 @@ export default function HomeGrid({ posts, topTags }: Props) {
           {posts && posts.length > 0 ? (
             posts.map((post) => <PostItem key={post.slug} post={post} handleTagClick={handleTagClick} />)
           ) : (
+            // TODO : 컴포넌트로 분리
             <div className="flex h-full w-full items-center text-2xl font-bold " data-testid="no-search-result">
               <div className="m-20 flex flex-col items-center">
                 <span className="text-2xl font-bold">

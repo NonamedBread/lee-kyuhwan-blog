@@ -1,36 +1,35 @@
+import React, { useMemo } from 'react';
 import { GetStaticProps } from 'next';
 import { useDispatch } from 'react-redux';
 
-import { setAllPosts, setAllTags } from '@/modules/posts';
-import { getAllPosts, getAllTags } from '@/lib/postUtils';
+import { setAllSeries } from '@/modules/posts';
+import { getPostsGroupedBySeries } from '@/lib/postUtils';
 
 import Posts from '@/components/posts/Posts';
 import { useEffect } from 'react';
 
-interface Props {
-  posts: {
-    slug: string;
-    title: string;
-    date: string;
-    content: string;
-    tags: {
-      name: string;
-      count: number;
+interface Series {
+  [series: string]: {
+    seriesName: string;
+    posts: {
+      slug: string;
+      title: string;
+      date: string;
+      content: string;
+      tags: {
+        name: string;
+        count: number;
+      }[];
     }[];
-  }[];
-  allTags: {
-    name: string;
-    count: number;
   }[];
 }
 
-export default function Home({ posts, allTags }: Props) {
+export default function Home({ series }: Series) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setAllPosts(posts));
-    dispatch(setAllTags(allTags));
-  }, [dispatch, posts, allTags]);
+    dispatch(setAllSeries(series));
+  }, [dispatch, series]);
 
   return (
     <div className="flex min-h-screen flex-col items-center ">
@@ -40,13 +39,11 @@ export default function Home({ posts, allTags }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = getAllPosts();
-  const allTags = getAllTags();
+  const allSeries = getPostsGroupedBySeries();
 
   return {
     props: {
-      posts: posts,
-      allTags: allTags,
+      series: allSeries,
     },
   };
 };
