@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import PostItem from '../posts/PostItem';
 import HomeSearch from './HomeSearch';
-import Taps from '@/components/home/Taps';
+import Taps from '@/components/home/HomeTaps';
 
 import { filterSeriesByTag } from '@/modules/posts';
 interface Tag {

@@ -24,6 +24,7 @@
   font-display: swap;
 }
 
+/* Slide animations */
 @keyframes slide-in {
   0% {
     transform: translateY(-100%);
@@ -32,6 +33,7 @@
     transform: translateY(0);
   }
 }
+
 @keyframes slide-out {
   0% {
     transform: translateY(0);
@@ -49,6 +51,7 @@
     transform: translateY(0);
   }
 }
+
 @keyframes slide-out-sideTap {
   0% {
     max-height: 100dvh;
@@ -98,6 +101,39 @@
 
 .slide-out-horizontal {
   animation: slide-out-horizontal 0.4s forwards;
+}
+
+/* Button animations */
+@keyframes button-grow {
+  0% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes button-shrink {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+.button-grow {
+  animation: button-grow 0.5s ease-in-out forwards;
+}
+
+.button-shrink {
+  animation: button-shrink 0.5s ease-in-out forwards;
 }
 /* :root {
   --foreground-rgb: 50, 50, 50;
