@@ -1,32 +1,41 @@
 import { useState } from 'react';
 
-const POST_TAPS = [
-  { key: 'A', name: '글', path: '/posts' },
-  { key: 'T', name: '시리즈', path: '/tags' },
-  { key: 'I', name: '소개', path: '/info' },
-];
-
-interface TapProps {
-  item: {
-    key: string;
-    name: string;
-    path: string;
-  };
-  index: number;
-  selected: string;
-  handleSelected: (key: string) => void;
+interface Item {
+  key: string;
+  name: string;
 }
 
-const Tap = ({ item, index, selected, handleSelected }: TapProps) => {
-  const { key, name, path } = item;
+interface TapProps {
+  item: Item;
+  index: number;
+  selected: Item;
+  handleSelectTap: (key: string) => void;
+}
 
+interface TapsProps {
+  postTapsNames: Item[];
+  selectedTap: Item;
+  handleSelectTap: (key: string) => void;
+}
+
+export default function HomeTaps({ postTapsNames, selectedTap, handleSelectTap }: TapsProps) {
+  return (
+    <div className="flex items-center justify-start  space-x-4 px-5 ">
+      {postTapsNames.map((item, index) => (
+        <Tap key={item.key} item={item} index={index} selected={selectedTap} handleSelectTap={handleSelectTap} />
+      ))}
+    </div>
+  );
+}
+
+const Tap = ({ item: { key, name }, index, selected, handleSelectTap }: TapProps) => {
   return (
     <div
       className={`
        group relative h-9 w-24 bg-slate-100 p-0.5 text-gray-700 [clip-path:polygon(17%_5%,_83%_5%,_97%_100%,_3%_100%)] ${index > 1 ? 'right-16' : index > 0 ? 'right-8' : ''}
        z-10 bg-slate-300 group-hover:text-gray-800
        `}
-      onClick={() => handleSelected(key)}
+      onClick={() => handleSelectTap(key)}
     >
       <div
         className={`
@@ -38,7 +47,7 @@ const Tap = ({ item, index, selected, handleSelected }: TapProps) => {
           group-hover:bg-slate-300 
           dark:text-slate-300 
           dark:hover:bg-customGreay-900 
-          ${selected === key ? 'bg-slate-300 dark:bg-customGreay-800' : 'bg-slate-100 dark:bg-customGreay-600'}
+          ${selected.key === key ? 'bg-slate-300 dark:bg-customGreay-800' : 'bg-slate-100 dark:bg-customGreay-600'}
         `}
       >
         {name}
@@ -46,19 +55,3 @@ const Tap = ({ item, index, selected, handleSelected }: TapProps) => {
     </div>
   );
 };
-
-export default function Taps() {
-  const [selected, setSelected] = useState(POST_TAPS[0].key);
-
-  const handleSelected = (key: string) => {
-    setSelected(key);
-  };
-
-  return (
-    <div className="flex items-center justify-start  space-x-4 px-5 ">
-      {POST_TAPS.map((item, index) => (
-        <Tap key={item.key} item={item} index={index} selected={selected} handleSelected={handleSelected} />
-      ))}
-    </div>
-  );
-}

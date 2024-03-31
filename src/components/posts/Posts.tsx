@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
 
-import { useSelector } from 'react-redux';
+import PostItem from './PostItem';
+import NoSearchResult from '../common/NoSearchResult';
 
-import HomeGrid from '../home/HomeGrid';
-
-export default function Posts() {
-  const series = useSelector((state: any) => state.data.filteredSeries);
-
-  return (
-    <>
-      <HomeGrid series={series} />
-    </>
-  );
+interface Posts {
+  posts: {
+    slug: string;
+    title: string;
+    date: string;
+    content: string;
+    tags: {
+      name: string;
+      count: number;
+    }[];
+  }[];
+  handleTagClick: (tag: string) => void;
 }
 
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
+export default function Posts({ posts, handleTagClick }: Posts) {
+  return (
+    <>
+      {posts && posts.length > 0 ? posts.map((post) => <PostItem key={post.slug} post={post} handleTagClick={handleTagClick} />) : <NoSearchResult />}
+    </>
+  );
 }
