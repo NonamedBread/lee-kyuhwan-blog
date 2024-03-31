@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import PostItem from '../posts/PostItem';
+import Posts from '@/components/posts/Posts';
 import HomeSearch from './HomeSearch';
 import HomeTaps from '@/components/home/HomeTaps';
 
@@ -80,20 +80,7 @@ export default function HomeGrid() {
       <div className="h-full w-[60%]">
         <HomeTaps postTapsNames={postTapsNames} selectedTap={selectedTap} handleSelectTap={handleSelectTap} />
         <div className="flex  flex-wrap space-y-2 rounded-md border border-customGreay-200 p-2 dark:border-customGreay-100">
-          {posts && posts.length > 0 ? (
-            posts.map((post) => <PostItem key={post.slug} post={post} handleTagClick={handleTagClick} />)
-          ) : (
-            <div className="flex h-full w-full items-center text-2xl font-bold " data-testid="no-search-result">
-              <div className="m-20 flex flex-col items-center">
-                <span className="text-2xl font-bold">
-                  아쉽게도 검색 결과가 없네요.
-                  <span role="img" aria-label="Sad face" className="text-4xl">
-                    😅
-                  </span>
-                </span>
-              </div>
-            </div>
-          )}
+          <Posts posts={posts} handleTagClick={handleTagClick} />
         </div>
       </div>
     </div>
