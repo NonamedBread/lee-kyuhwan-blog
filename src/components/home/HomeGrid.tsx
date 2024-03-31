@@ -1,9 +1,11 @@
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Posts from '@/components/posts/Posts';
 import HomeSearch from './HomeSearch';
 import HomeTaps from '@/components/home/HomeTaps';
+
+import Posts from '@/components/posts/Posts';
+import AboutMe from '../posts/AboutMe';
 
 import { filterSeriesByTag } from '@/modules/posts';
 interface Tag {
@@ -46,9 +48,9 @@ function getTags(posts: Post[]): Tag[] {
 }
 
 const POST_TAPS = [
-  { key: 'A', name: '글', path: '/posts' },
-  { key: 'T', name: '시리즈', path: '/tags' },
-  { key: 'I', name: '소개', path: '/info' },
+  { key: 'P', name: '글' },
+  { key: 'T', name: '시리즈' },
+  { key: 'I', name: '소개' },
 ];
 
 export default function HomeGrid() {
@@ -58,8 +60,8 @@ export default function HomeGrid() {
   const posts = getAllPosts(series);
   const tags = getTags(posts);
   const topTags = tags.sort((a: { count: number }, b: { count: number }) => b.count - a.count).slice(0, 10);
-  const postTapsNames = POST_TAPS.map((item) => ({ key: item.key, name: item.name, path: item.path }));
-  const [selectedTap, setSelectedTap] = useState(POST_TAPS[0].key);
+  const postTapsNames = POST_TAPS.map((item) => ({ key: item.key, name: item.name }));
+  const [selectedTap, setSelectedTap] = useState(postTapsNames[0]);
 
   const handleTagClick = useCallback(
     (tag: string) => {
@@ -70,7 +72,7 @@ export default function HomeGrid() {
   );
 
   const handleSelectTap = (key: string) => {
-    setSelectedTap(key);
+    setSelectedTap(postTapsNames.find((item) => item.key === key) || postTapsNames[0]);
   };
 
   // TODO : 게시글 갯수마다 광고 && 0개 이하일 경우 게시글이 없다는 문구와 광고 하나
@@ -80,7 +82,7 @@ export default function HomeGrid() {
       <div className="h-full w-[60%]">
         <HomeTaps postTapsNames={postTapsNames} selectedTap={selectedTap} handleSelectTap={handleSelectTap} />
         <div className="flex  flex-wrap space-y-2 rounded-md border border-customGreay-200 p-2 dark:border-customGreay-100">
-          <Posts posts={posts} handleTagClick={handleTagClick} />
+          {selectedTap.key === 'P' ? <Posts posts={posts} handleTagClick={handleTagClick} /> : selectedTap.key === 'T' ? <>시리즈</> : <AboutMe />}
         </div>
       </div>
     </div>

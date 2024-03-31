@@ -3,19 +3,18 @@ import { useState } from 'react';
 interface Item {
   key: string;
   name: string;
-  path: string;
 }
 
 interface TapProps {
   item: Item;
   index: number;
-  selected: string;
+  selected: Item;
   handleSelectTap: (key: string) => void;
 }
 
 interface TapsProps {
   postTapsNames: Item[];
-  selectedTap: string;
+  selectedTap: Item;
   handleSelectTap: (key: string) => void;
 }
 
@@ -29,7 +28,7 @@ export default function HomeTaps({ postTapsNames, selectedTap, handleSelectTap }
   );
 }
 
-const Tap = ({ item: { key, name, path }, index, selected, handleSelectTap }: TapProps) => {
+const Tap = ({ item: { key, name }, index, selected, handleSelectTap }: TapProps) => {
   return (
     <div
       className={`
@@ -48,7 +47,7 @@ const Tap = ({ item: { key, name, path }, index, selected, handleSelectTap }: Ta
           group-hover:bg-slate-300 
           dark:text-slate-300 
           dark:hover:bg-customGreay-900 
-          ${selected === key ? 'bg-slate-300 dark:bg-customGreay-800' : 'bg-slate-100 dark:bg-customGreay-600'}
+          ${selected.key === key ? 'bg-slate-300 dark:bg-customGreay-800' : 'bg-slate-100 dark:bg-customGreay-600'}
         `}
       >
         {name}
