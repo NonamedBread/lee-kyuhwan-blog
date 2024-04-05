@@ -49,7 +49,7 @@ export default function HomeSideTap({ isHeaderVisible, sideTap }: Props) {
 
   return (
     <div
-      className={`${animationClass} fixed left-0 top-0 z-50  ${isHeaderVisible ? '' : 'mt-[10dvh]'} h-screen w-[19dvw]  transition-all duration-300 ease-in-out `}
+      className={`${animationClass} fixed left-0 top-0 z-50  ${isHeaderVisible ? '' : 'mt-[10dvh]'} hidden h-screen  w-[19dvw] transition-all duration-300 ease-in-out md:block`}
     >
       <div
         className={` flex h-full flex-col items-center gap-3 ${roundedClasses} ${borderClasses} border-gray-300 bg-slate-100 p-6 dark:bg-customGreay-900  `}
