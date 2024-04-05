@@ -79,9 +79,9 @@ export default function HomeGrid() {
   return (
     <div className="flex w-full flex-col items-center space-y-8">
       <HomeSearch topTags={topTags} selectedTag={selectedTag} handleTagClick={handleTagClick} />
-      <div className="h-full w-[60%]">
+      <div className="h-full w-[95%] md:w-[70%]">
         <HomeTaps postTapsNames={postTapsNames} selectedTap={selectedTap} handleSelectTap={handleSelectTap} />
-        <div className="flex  flex-wrap space-y-2 rounded-md border border-customGreay-200 p-2 dark:border-customGreay-100">
+        <div className="flex flex-wrap space-y-2 rounded-md border border-customGreay-200 p-2 dark:border-customGreay-100">
           {selectedTap.key === 'P' ? <Posts posts={posts} handleTagClick={handleTagClick} /> : selectedTap.key === 'T' ? <>시리즈</> : <AboutMe />}
         </div>
       </div>

@@ -37,7 +37,7 @@ export default function HomeTag({ tags, handleTagClick, handleSideTap, size = 'm
   };
 
   return (
-    <div>
+    <div className="hidden flex-wrap justify-center gap-2 md:flex">
       {tags.map((tag) => (
         <button
           key={tag.name}
