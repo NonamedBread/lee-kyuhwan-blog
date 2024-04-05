@@ -1,9 +1,17 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: ['./src/pages/**/*.{js,ts,jsx,tsx,mdx}', './src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/app/**/*.{js,ts,jsx,tsx,mdx}'],
+  important: true, // Production Level에서는 !important를 사용해야 screen이나 mui의 style이 적용됨
+  content: ['./src/pages/**/*.{js,ts,jsx,tsx,mdx}', './src/components/**/*.{js,ts,jsx,tsx,mdx}'],
   darkMode: 'class',
   theme: {
+    screens: {
+      mobile: '320px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

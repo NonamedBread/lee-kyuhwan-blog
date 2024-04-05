@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 
 import NightsStayIcon from '@mui/icons-material/NightsStay';
+import HomeIcon from '@mui/icons-material/Home';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import PersonIcon from '@mui/icons-material/Person';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -49,12 +50,19 @@ const HomeHeader = forwardRef<HTMLDivElement, Props>(({ theme, sideTap, sideTapS
   return (
     <div ref={ref} className={`flex h-full items-center justify-between p-5`}>
       <Link href={'/'} className="h-full cursor-pointer">
-        <h1 className="text-4xl font-bold">{'< Lee`s Devlog >'}</h1>
+        <h1 className="hidden text-4xl font-bold md:block">{'< Lee`s Devlog >'}</h1>
+        <HomeIcon className="cursor-pointer text-5xl md:hidden" />
       </Link>
-      <div className="flex h-full items-center gap-9">
-        <ToggleSwitch id={sideTapSwitchId} toggleAction={toggleSideTap} icons={SideTapIcons} checked={sideTap} iconTheme="sideTap" />
-        <ToggleSwitch id={darkModeSwitchId} toggleAction={toggleTheme} icons={DarkModeicons} checked={darkModeSate} iconTheme="darkMode" />
-        <PersonIcon className="cursor-pointer text-5xl text-customGreay-400 dark:text-customGreay-200" />
+      <div className="h-full ">
+        <div className="hidden items-center gap-9 md:flex">
+          <ToggleSwitch id={sideTapSwitchId} toggleAction={toggleSideTap} icons={SideTapIcons} checked={sideTap} iconTheme="sideTap" />
+          <ToggleSwitch id={darkModeSwitchId} toggleAction={toggleTheme} icons={DarkModeicons} checked={darkModeSate} iconTheme="darkMode" />
+          <PersonIcon className="cursor-pointer text-5xl text-customGreay-400 dark:text-customGreay-200" />
+        </div>
+        <div className="flex items-center md:hidden">
+          {/* TODO mobile 메뉴바 */}
+          <MenuIcon className="cursor-pointer text-5xl" />
+        </div>
       </div>
     </div>
   );

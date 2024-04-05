@@ -28,13 +28,20 @@ export default function FixedButton({ fixed, isHeaderVisible, targetRef }: Butto
   };
 
   return (
-    <div className={`fixed bottom-20 right-11 z-50 transition-all duration-300 ease-in-out`}>
+    <div
+      className={`fixed bottom-20 right-3 z-50 transition-all duration-300 ease-in-out
+      md:bottom-20 md:right-11
+      
+    `}
+    >
       <div className="flex flex-col items-center gap-6">
-        <Tooltip title="사이드탭 고정" arrow placement="top">
-          <IconButton className={`${IconButtonClassName}  ${isHeaderVisible ? 'button-shrink' : 'button-grow'}`} onClick={handleFixedButtonClik}>
-            {fixed ? <PushPinIcon className="text-4xl" /> : <PushPinOutlinedIcon className="text-4xl" />}
-          </IconButton>
-        </Tooltip>
+        <span className="hidden md:block">
+          <Tooltip title="사이드탭 고정" arrow placement="top">
+            <IconButton className={`${IconButtonClassName}  ${isHeaderVisible ? 'button-shrink' : 'button-grow'}`} onClick={handleFixedButtonClik}>
+              {fixed ? <PushPinIcon className="text-4xl" /> : <PushPinOutlinedIcon className="text-4xl" />}
+            </IconButton>
+          </Tooltip>
+        </span>
         <Tooltip title="맨 위로" arrow placement="top">
           <IconButton className={`${IconButtonClassName}  ${isHeaderVisible ? 'button-shrink' : 'button-grow'}`} onClick={handleTopbuttonClik}>
             <VerticalAlignTopIcon className="text-4xl" />

@@ -58,8 +58,8 @@ export default function Layout({ children }: Props) {
         <FixedHeader isHeaderVisible={isHeaderVisible} theme={theme} sideTap={fixed || sideTap} />
       </div>
       <HomeSideTap isHeaderVisible={isHeaderVisible} sideTap={fixed || sideTap} />
-      <div className="mx-8 border-l-8">
-        <div className=" container mx-auto space-y-8">{children}</div>
+      <div className="md:mx-8 md:border-l-8">
+        <div className=" mx-auto space-y-8 md:container ">{children}</div>
       </div>
       <FixedButton fixed={fixed} isHeaderVisible={isHeaderVisible} targetRef={headerRef} />
       <HomeFooter />
