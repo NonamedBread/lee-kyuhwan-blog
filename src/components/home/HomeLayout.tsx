@@ -2,10 +2,10 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import HomeHeader from '@/components/home/HomeHeader';
-import FixedHeader from './home/FixedHeader';
-import HomeFooter from './home/HomeFooter';
-import HomeSideTap from './home/HomeSideTap';
-import FixedButton from './home/FixedButton';
+import FixedHeader from './FixedHeader';
+import HomeFooter from './HomeFooter';
+import HomeSideTap from './HomeSideTap';
+import FixedButton from './FixedButton';
 
 import layout from '@/modules/layout';
 
@@ -13,7 +13,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function Layout({ children }: Props) {
+export default function HomeLayout({ children }: Props) {
   const dispatch = useDispatch();
   const headerRef = useRef(null);
   const ui = useSelector((state: any) => state.ui);
@@ -52,7 +52,7 @@ export default function Layout({ children }: Props) {
   }, [dispatch, fixed, scrollPos]);
 
   return (
-    <main className="bg-slate-100 text-gray-700 dark:bg-customGreay-900 dark:text-slate-100">
+    <main className="min-h-screen bg-slate-100 text-gray-700 dark:bg-customGreay-900 dark:text-slate-100">
       <div className={`h-[10dvh]`}>
         <HomeHeader ref={headerRef} sideTapSwitchId="sideTapSwitch" darkModeSwitchId="darkModeSwitch" theme={theme} sideTap={fixed || sideTap} />
         <FixedHeader isHeaderVisible={isHeaderVisible} theme={theme} sideTap={fixed || sideTap} />
