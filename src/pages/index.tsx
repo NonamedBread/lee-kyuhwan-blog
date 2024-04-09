@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { setAllSeries } from '@/modules/posts';
 import { getPostsGroupedBySeries } from '@/lib/postUtils';
 
-// import Posts from '@/components/posts/Posts';
 import HomeGrid from '@/components/home/HomeGrid';
 import HomeLayout from '@/components/home/HomeLayout';
 import { useEffect } from 'react';

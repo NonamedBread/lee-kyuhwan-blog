@@ -28,7 +28,7 @@ export default function PostContent({ post }: { post: Post }) {
   };
 
   return (
-    <div className="m-8 mx-auto max-w-2xl">
+    <div className="m-8 mx-auto min-h-screen max-w-2xl">
       <PostHeader title={title} date={date} />
 
       <ReactMarkdown components={customRenderers}>{content}</ReactMarkdown>

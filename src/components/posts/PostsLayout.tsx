@@ -2,10 +2,10 @@ import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import HomeHeader from '@/components/home/HomeHeader';
-import FixedHeader from './FixedHeader';
-import HomeFooter from './HomeFooter';
-import HomeSideTap from './HomeSideTap';
-import FixedButton from './FixedButton';
+import FixedHeader from '../home/FixedHeader';
+import HomeFooter from '../home/HomeFooter';
+import HomeSideTap from '../home/HomeSideTap';
+import FixedButton from '../home/FixedButton';
 
 import { useScrollObserver } from '@/hooks/useScrollObserver';
 
