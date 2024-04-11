@@ -1,6 +1,7 @@
 import React from 'react';
 
 import PostContent from '@/components/posts/PostDetail/PostContent';
+import PostsLayout from '@/components/posts/PostsLayout';
 
 import { getPostsFiles, getPostData } from '@/lib/postUtils';
 
@@ -8,9 +9,9 @@ export default function PostDetailPage(props: any) {
   const { post } = props;
 
   return (
-    <div className="flex min-h-screen flex-col items-center ">
+    <PostsLayout>
       <PostContent post={post} />
-    </div>
+    </PostsLayout>
   );
 }
 

@@ -5,7 +5,7 @@ import HomeSearch from './HomeSearch';
 import HomeTaps from '@/components/home/HomeTaps';
 
 import Posts from '@/components/posts/Posts';
-import AboutMe from '../posts/AboutMe';
+import AboutMe from '../common/AboutMe';
 
 import { filterSeriesByTag } from '@/modules/posts';
 interface Tag {
