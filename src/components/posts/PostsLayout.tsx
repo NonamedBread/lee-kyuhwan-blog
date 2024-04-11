@@ -28,7 +28,7 @@ export default function PostsLayout({ children }: Props) {
         <FixedHeader isHeaderVisible={isHeaderVisible} theme={theme} sideTap={fixed || sideTap} />
       </div>
       <HomeSideTap isHeaderVisible={isHeaderVisible} sideTap={fixed || sideTap} />
-      <div className="md:mx-8 md:border-l-8">
+      <div className="mx-4 md:mx-8 md:border-l-8">
         <div className=" mx-auto space-y-8 md:container ">{children}</div>
       </div>
       <FixedButton fixed={fixed} isHeaderVisible={isHeaderVisible} targetRef={headerRef} />
