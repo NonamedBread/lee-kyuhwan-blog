@@ -14,6 +14,7 @@
 - **Tailwind CSS**: Utility-first CSS 프레임워크
 - **Markdown**: 글을 작성하고 편집하기 위한 마크다운 언어 사용
 - **GitHub**: 소스 코드 버전 관리 및 호스팅
+- **Vercel**: 프로젝트를 배포하고 호스팅하는 플랫폼
 
 ## 데모
 
