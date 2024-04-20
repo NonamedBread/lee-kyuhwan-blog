@@ -35,11 +35,11 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
                     hover:transform dark:bg-customGreay-700"
       >
         <div className="flex w-full flex-row">
-          <div className="relative flex w-3/5 flex-col items-start justify-center p-4">
+          <div className="relative hidden w-3/5 flex-col items-start justify-center p-4 md:flex">
             <Link href={{ pathname: `${href}` }}>
               <h2 className="mb-2 overflow-hidden overflow-ellipsis whitespace-nowrap font-bold">{post.title}</h2>
             </Link>
-            <div className="overflow-hidden sm:line-clamp-1 md:line-clamp-1 lg:line-clamp-2 xl:line-clamp-4">
+            <div className="overflow-hidden md:line-clamp-2 lg:line-clamp-2 xl:line-clamp-4">
               <Link href={{ pathname: `${href}` }}>
                 <ReactMarkdown
                   components={{
@@ -57,9 +57,9 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
               </Link>
             </div>
           </div>
-          <div className="relative w-2/5">
-            <Link href={{ pathname: `${href}` }}>
-              <Image className="object-cover" src="/images/dummy_image.png" alt={post.title} width={500} height={300} />
+          <div className="relative h-full w-full md:w-2/5">
+            <Link href={{ pathname: `${href}` }} className="cursor-pointer">
+              <Image src="/images/dummy_image.png" alt={post.title} width={500} height={300} />
             </Link>
           </div>
         </div>
