@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import { setAllSeries } from '@/modules/posts';
 import { getPostsGroupedBySeries } from '@/lib/postUtils';
 
-// import Posts from '@/components/posts/Posts';
 import HomeGrid from '@/components/home/HomeGrid';
+import HomeLayout from '@/components/home/HomeLayout';
 import { useEffect } from 'react';
 
 interface Series {
@@ -33,9 +33,9 @@ export default function Home({ series }: Series) {
   }, [dispatch, series]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center ">
+    <HomeLayout>
       <HomeGrid />
-    </div>
+    </HomeLayout>
   );
 }
 

@@ -12,7 +12,7 @@ export default function PostHeader({ title, date }: PostHeaderProps) {
 
   return (
     <div className="gap-4">
-      <h1 className="text-4xl font-bold">{title ?? 'No title'}</h1>
+      <h1 className="text-3xl font-bold md:text-4xl">{title ?? 'No title'}</h1>
       <div className="my-4 border-b border-gray-500"></div>
       <div className="my-4">
         <p className="text-right text-base text-gray-500">{formattedDate}</p>
