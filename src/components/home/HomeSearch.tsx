@@ -47,7 +47,7 @@ export default function HomeSearch({ topTags, selectedTag, handleTagClick }: Sea
           />
         )}
       </div>
-      <div className="mt-4">
+      <div className="mt-4 hidden w-full md:block ">
         <HomeTag tags={topTags} handleTagClick={handleTagClick} handleSideTap={handleSideTap} />
       </div>
     </div>

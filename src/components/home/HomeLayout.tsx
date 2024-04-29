@@ -19,7 +19,7 @@ export default function PostsLayout({ children }: Props) {
   const theme = ui.darkMode.theme;
   const sideTap = ui.layout.sideTap;
   const fixed = ui.layout.fixed;
-  const { isHeaderVisible } = useScrollObserver(fixed, headerRef);
+  const isHeaderVisible  = useScrollObserver(fixed, headerRef);
 
   return (
     <main className="min-h-screen bg-slate-100 text-gray-700 dark:bg-customGreay-900 dark:text-slate-100">
