@@ -34,5 +34,6 @@ export const useScrollObserver = (fixed: boolean, headerRef: RefObject<HTMLEleme
     return () => window.removeEventListener('scroll', handleScroll);
   }, [dispatch, fixed, scrollPos]);
 
-  return { isHeaderVisible, headerRef };
+
+  return isHeaderVisible;
 };

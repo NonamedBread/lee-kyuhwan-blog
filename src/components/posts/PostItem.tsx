@@ -64,9 +64,29 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
           </div>
         </div>
         <div className="w-full border-t border-gray-200"></div>
-        <div className="flex items-center justify-between gap-2 p-5">
-          <p className="text-large   text-gray-500">{formattedDate}</p>
-          <div className="flex gap-2">
+        <div className="flex flex-col items-center justify-between gap-2 p-5 md:flex-row">
+          <Link href={{ pathname: `${href}` }} className="flex w-full cursor-pointer md:hidden">
+            <h2 className="mb-2 overflow-hidden overflow-ellipsis whitespace-nowrap font-bold">{post.title}</h2>
+          </Link>
+          <div className="line-clamp-2 overflow-hidden md:hidden">
+            <Link href={{ pathname: `${href}` }}>
+              <ReactMarkdown
+                components={{
+                  p(paragraph: any) {
+                    return <p>{paragraph.children}</p>;
+                  },
+                  //Link 태그를 사용하기 위해서 a 태그를 다음과 같이 커스텀
+                  a(link: any) {
+                    return <u>{link.children}</u>;
+                  },
+                }}
+              >
+                {post.content}
+              </ReactMarkdown>
+            </Link>
+          </div>
+          <p className="text-large w-full text-right text-gray-500">{formattedDate}</p>
+          <div className="hidden gap-2 md:flex ">
             {post.tags.map((tag) => (
               <HomeTags key={tag.name} tags={[tag]} handleTagClick={handleTagClick} size="sm" bgColor="slate" textColor="black" />
             ))}
