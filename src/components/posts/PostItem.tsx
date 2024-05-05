@@ -30,12 +30,13 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
 
   return (
     <div className="w-full p-2 ">
+      {/* desktop */}
       <div
-        className="w-full overflow-auto rounded bg-white shadow transition-all duration-300 ease-in-out hover:-translate-y-2.5
-                    hover:transform dark:bg-customGreay-700"
+        className="hidden w-full overflow-auto rounded bg-white shadow transition-all duration-300 ease-in-out
+                    hover:-translate-y-2.5 hover:transform dark:bg-customGreay-700 md:block"
       >
         <div className="flex w-full flex-row">
-          <div className="relative hidden w-3/5 flex-col items-start justify-center p-4 md:flex">
+          <div className="relative w-3/5 flex-col items-start justify-center p-4">
             <Link href={{ pathname: `${href}` }}>
               <h2 className="mb-2 overflow-hidden overflow-ellipsis whitespace-nowrap font-bold">{post.title}</h2>
             </Link>
@@ -57,18 +58,38 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
               </Link>
             </div>
           </div>
-          <div className="relative h-full w-full md:w-2/5">
+          <div className="relative h-full w-2/5">
             <Link href={{ pathname: `${href}` }} className="cursor-pointer">
               <Image src="/images/dummy_image.png" alt={post.title} width={500} height={300} />
             </Link>
           </div>
         </div>
         <div className="w-full border-t border-gray-200"></div>
-        <div className="flex flex-col items-center justify-between gap-2 p-5 md:flex-row">
-          <Link href={{ pathname: `${href}` }} className="flex w-full cursor-pointer md:hidden">
+        <div className="flex flex-row items-center justify-between gap-2 p-5">
+          <p className="text-large w-full text-gray-500">{formattedDate}</p>
+          <div className=" flex gap-2 ">
+            {post.tags.map((tag) => (
+              <HomeTags key={tag.name} tags={[tag]} handleTagClick={handleTagClick} size="sm" bgColor="slate" textColor="black" />
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* mobile */}
+      <div
+        className="w-full overflow-auto rounded bg-white shadow transition-all duration-300 ease-in-out hover:-translate-y-2.5
+                    hover:transform dark:bg-customGreay-700 md:hidden"
+      >
+        <div className="relative h-full w-full ">
+          <Link href={{ pathname: `${href}` }} className="cursor-pointer">
+            <Image src="/images/dummy_image.png" alt={post.title} width={500} height={300} />
+          </Link>
+        </div>
+        <div className="w-full border-t border-gray-200"></div>
+        <div className="flex flex-col items-center justify-between gap-2 p-5 ">
+          <Link href={{ pathname: `${href}` }} className="flex w-full cursor-pointer">
             <h2 className="mb-2 overflow-hidden overflow-ellipsis whitespace-nowrap font-bold">{post.title}</h2>
           </Link>
-          <div className="line-clamp-2 overflow-hidden md:hidden">
+          <div className="line-clamp-2 overflow-hidden">
             <Link href={{ pathname: `${href}` }}>
               <ReactMarkdown
                 components={{
@@ -86,11 +107,6 @@ export default function PostItem({ post, handleTagClick }: PostProps) {
             </Link>
           </div>
           <p className="text-large w-full text-right text-gray-500">{formattedDate}</p>
-          <div className="hidden gap-2 md:flex ">
-            {post.tags.map((tag) => (
-              <HomeTags key={tag.name} tags={[tag]} handleTagClick={handleTagClick} size="sm" bgColor="slate" textColor="black" />
-            ))}
-          </div>
         </div>
       </div>
     </div>
