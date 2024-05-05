@@ -4,7 +4,7 @@ import HomeHeader from './HomeHeader';
 interface Props {
   isHeaderVisible: boolean;
   sideTap: boolean;
-  DarkModeicons: { checked: any; unChecked: any };
+  darkModeicons: { checked: any; unChecked: any };
   darkModeState: boolean;
   toggleTheme: () => void;
   toggleSideTap: () => void;

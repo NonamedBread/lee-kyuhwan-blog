@@ -61,7 +61,7 @@ export default function PostsLayout({ children }: Props) {
           ref={headerRef}
           sideTapSwitchId="sideTapSwitch"
           darkModeSwitchId="darkModeSwitch"
-          DarkModeicons={DarkModeicons}
+          darkModeicons={DarkModeicons}
           darkModeState={darkModeState}
           sideTap={fixed || sideTap}
           toggleSideTap={toggleSideTap}
@@ -70,7 +70,7 @@ export default function PostsLayout({ children }: Props) {
         />
         <FixedHeader
           isHeaderVisible={isHeaderVisible}
-          DarkModeicons={DarkModeicons}
+          darkModeicons={DarkModeicons}
           darkModeState={darkModeState}
           sideTap={fixed || sideTap}
           toggleSideTap={toggleSideTap}
@@ -88,7 +88,7 @@ export default function PostsLayout({ children }: Props) {
         <MobileMenu
           darkModeSwitchId="mobileDarkModeSwitch"
           toggleTheme={toggleTheme}
-          DarkModeicons={DarkModeicons}
+          darkModeicons={DarkModeicons}
           darkModeState={darkModeState}
           handleMobileMenu={handleMobileMenu}
         />

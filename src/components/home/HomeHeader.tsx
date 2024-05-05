@@ -12,7 +12,7 @@ interface Props {
   sideTap: boolean;
   sideTapSwitchId: string;
   darkModeSwitchId: string;
-  DarkModeicons: { checked: any; unChecked: any };
+  darkModeicons: { checked: any; unChecked: any };
   darkModeState: boolean;
   toggleSideTap: () => void;
   toggleTheme: () => void;
@@ -25,7 +25,7 @@ const SideTapIcons = {
 };
 
 const HomeHeader = forwardRef<HTMLDivElement, Props>(
-  ({ sideTap, sideTapSwitchId, darkModeSwitchId, DarkModeicons, darkModeState, toggleSideTap, toggleTheme, handleMobileMenu }, ref) => {
+  ({ sideTap, sideTapSwitchId, darkModeSwitchId, darkModeicons, darkModeState, toggleSideTap, toggleTheme, handleMobileMenu }, ref) => {
     const renderToggleSwitch = (
       id: string,
       toggleAction: () => void,
@@ -44,7 +44,7 @@ const HomeHeader = forwardRef<HTMLDivElement, Props>(
           <div className="h-full ">
             <div className="hidden items-center gap-9 md:flex">
               {renderToggleSwitch(sideTapSwitchId, toggleSideTap, SideTapIcons, sideTap, 'sideTap')}
-              {renderToggleSwitch(darkModeSwitchId, toggleTheme, DarkModeicons, darkModeState, 'darkMode')}
+              {renderToggleSwitch(darkModeSwitchId, toggleTheme, darkModeicons, darkModeState, 'darkMode')}
               <PersonIcon className="cursor-pointer text-5xl text-customGreay-400 dark:text-customGreay-200" />
             </div>
             <div className="flex items-center md:hidden">
