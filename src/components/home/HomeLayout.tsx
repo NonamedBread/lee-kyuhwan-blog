@@ -27,12 +27,12 @@ const DarkModeicons = {
 };
 
 export default function PostsLayout({ children }: Props) {
+  const dispatch = useDispatch();
   const headerRef = useRef(null);
   const theme = useSelector((state: any) => state.ui.darkMode.theme);
   const sideTap = useSelector((state: any) => state.ui.layout.sideTap);
   const fixed = useSelector((state: any) => state.ui.layout.fixed);
   const isHeaderVisible = useScrollObserver(fixed, headerRef);
-  const dispatch = useDispatch();
 
   const darkModeState = useMemo(() => theme === 'dark', [theme]);
 
