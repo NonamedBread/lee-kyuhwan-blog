@@ -15,11 +15,11 @@ export default function PostDetailPage(props: any) {
   );
 }
 
-export async function getStaticProps(context: { params: { slug: string[] } }) {
-  const { params } = context;
+export async function getStaticProps(context: { locale: string; params: { slug: string[] } }) {
+  const { locale, params } = context;
   const slug = params.slug;
 
-  const postData = getPostData(slug);
+  const postData = await getPostData(locale, slug);
 
   return {
     props: {
@@ -30,10 +30,10 @@ export async function getStaticProps(context: { params: { slug: string[] } }) {
 }
 
 export async function getStaticPaths() {
-  const postFilenames = getPostsFiles();
+  const postFilenames = await getPostsFiles();
 
   const paths = postFilenames.map((fileName) => {
-    const slug = fileName.replace(/\.md$/, '').split('/');
+    const slug = fileName.path.replace(/\.md$/, '').split('/').slice(1);
     return { params: { slug } };
   });
 
