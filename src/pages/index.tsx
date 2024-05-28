@@ -40,7 +40,7 @@ export default function Home({ series }: Series) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allSeries = getPostsGroupedBySeries();
+  const allSeries = await getPostsGroupedBySeries();
 
   return {
     props: {
