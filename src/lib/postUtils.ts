@@ -30,6 +30,7 @@ interface GitHubFile {
 }
 
 async function fetchFromGitHub(path: string): Promise<any> {
+  console.log('fetchFromGitHub:', owner, repo, path); // 추가: 요청 로그
   const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
     headers: {
       Accept: 'application/vnd.github+json',
