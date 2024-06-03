@@ -30,16 +30,24 @@ export async function getStaticProps(context: { locale: string; params: { slug: 
 }
 
 export async function getStaticPaths() {
-  const postFilenames = await getPostsFiles();
+  try {
+    const postFilenames = await getPostsFiles();
+    console.log('postFilenames:', postFilenames); // 추가: 파일 이름 로그
 
-  const paths = postFilenames.map((fileName) => {
-    const slug = fileName.path.replace(/\.md$/, '').split('/').slice(1);
-    console.log('slug', slug);
-    return { params: { slug } };
-  });
+    const paths = postFilenames.map((fileName) => {
+      const slug = fileName.path.replace(/\.md$/, '').split('/').slice(1);
+      console.log('slug:', slug); // 추가: 슬러그 로그
+      return { params: { slug } };
+    });
 
-  return {
-    paths,
-    fallback: true,
-  };
+    console.log('paths:', paths); // 추가: 경로 로그
+
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch (error) {
+    console.error('Error in getStaticPaths:', error); // 추가: 오류 로그
+    throw error;
+  }
 }

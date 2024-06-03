@@ -37,6 +37,8 @@ async function fetchFromGitHub(path: string): Promise<any> {
       'X-GitHub-Api-Version': '2022-11-28',
     },
   });
+
+  console.log('response:', response); // 추가: 응답 로그
   return await response.json();
 }
 
