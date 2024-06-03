@@ -25,7 +25,7 @@ export async function getStaticProps(context: { locale: string; params: { slug: 
     props: {
       post: postData,
     },
-    revalidate: 600,
+    revalidate: 10 * 1000, // 10 seconds
   };
 }
 
@@ -39,6 +39,6 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }

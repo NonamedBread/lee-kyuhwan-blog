@@ -92,8 +92,6 @@ function groupPostsBySeries(posts: PostData[]): { [series: string]: PostData[] }
 export async function getPostsGroupedBySeries(): Promise<{ seriesName: string; posts: PostData[] }[]> {
   const postFiles = await getPostsFiles();
 
-  console.log('postFiles: ', postFiles);
-
   const allPosts = await Promise.all(
     postFiles.map(async (postFile) => {
       const fileContent = await convertMdToYaml(postFile);
