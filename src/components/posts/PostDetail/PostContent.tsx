@@ -11,7 +11,7 @@ interface Post {
 }
 
 export default function PostContent({ post }: { post: Post }) {
-  const { title, date, content } = post;
+  const { title, date, content } = post || {};
   const customRenderers = {
     p(paragraph: any) {
       const { node } = paragraph;
@@ -30,7 +30,6 @@ export default function PostContent({ post }: { post: Post }) {
   return (
     <div className="m-8 mx-auto min-h-screen max-w-2xl">
       <PostHeader title={title} date={date} />
-
       <ReactMarkdown components={customRenderers}>{content}</ReactMarkdown>
     </div>
   );

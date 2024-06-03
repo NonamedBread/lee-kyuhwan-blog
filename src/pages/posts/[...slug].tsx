@@ -25,20 +25,24 @@ export async function getStaticProps(context: { locale: string; params: { slug: 
     props: {
       post: postData,
     },
-    revalidate: 600,
+    revalidate: 10 * 1000, // 10 seconds
   };
 }
 
 export async function getStaticPaths() {
-  const postFilenames = await getPostsFiles();
+  try {
+    const postFilenames = await getPostsFiles();
 
-  const paths = postFilenames.map((fileName) => {
-    const slug = fileName.path.replace(/\.md$/, '').split('/').slice(1);
-    return { params: { slug } };
-  });
+    const paths = postFilenames.map((fileName) => {
+      const slug = fileName.path.replace(/\.md$/, '').split('/').slice(1);
+      return { params: { slug } };
+    });
 
-  return {
-    paths,
-    fallback: false,
-  };
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch (error) {
+    throw error;
+  }
 }
