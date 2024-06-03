@@ -34,6 +34,7 @@ export async function getStaticPaths() {
 
   const paths = postFilenames.map((fileName) => {
     const slug = fileName.path.replace(/\.md$/, '').split('/').slice(1);
+    console.log('slug', slug);
     return { params: { slug } };
   });
 
