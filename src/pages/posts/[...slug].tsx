@@ -15,30 +15,34 @@ export default function PostDetailPage(props: any) {
   );
 }
 
-export async function getStaticProps(context: { params: { slug: string[] } }) {
-  const { params } = context;
+export async function getStaticProps(context: { locale: string; params: { slug: string[] } }) {
+  const { locale, params } = context;
   const slug = params.slug;
 
-  const postData = getPostData(slug);
+  const postData = await getPostData(locale, slug);
 
   return {
     props: {
       post: postData,
     },
-    revalidate: 600,
+    revalidate: 10 * 1000, // 10 seconds
   };
 }
 
 export async function getStaticPaths() {
-  const postFilenames = getPostsFiles();
+  try {
+    const postFilenames = await getPostsFiles();
 
-  const paths = postFilenames.map((fileName) => {
-    const slug = fileName.replace(/\.md$/, '').split('/');
-    return { params: { slug } };
-  });
+    const paths = postFilenames.map((fileName) => {
+      const slug = fileName.path.replace(/\.md$/, '').split('/').slice(1);
+      return { params: { slug } };
+    });
 
-  return {
-    paths,
-    fallback: false,
-  };
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch (error) {
+    throw error;
+  }
 }

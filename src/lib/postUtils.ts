@@ -1,8 +1,9 @@
-import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-const postsDirectory = path.join(process.cwd(), 'posts');
+const owner = process.env.GITHUB_OWNER;
+const repo = process.env.GITHUB_REPO;
+const token = process.env.GITHUB_TOKEN;
 
 interface Series {
   seriesName: string;
@@ -22,54 +23,59 @@ interface PostData {
   }[];
 }
 
-export function getPostsFiles(dir: string = postsDirectory): string[] {
-  const directories = fs
-    .readdirSync(postsDirectory, { withFileTypes: true })
-    .filter((dirent) => dirent.isDirectory())
-    .map((dirent) => dirent.name);
+interface GitHubFile {
+  type: string;
+  path: string;
+  name: string;
+}
 
-  let postsFiles: string[] = [];
-  directories.forEach((dir) => {
-    const dirPath = path.join(postsDirectory, dir);
-    const files = fs.readdirSync(dirPath);
-    const fullPaths = files.map((file) => path.join(dir, file));
-    postsFiles = [...postsFiles, ...fullPaths];
+async function fetchFromGitHub(path: string): Promise<any> {
+  const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+    headers: {
+      Accept: 'application/vnd.github+json',
+      Authorization: `Bearer ${token}`,
+      'X-GitHub-Api-Version': '2022-11-28',
+    },
   });
-
-  return postsFiles;
-  // return fs.readdirSync(postsDirectory);
+  return await response.json();
 }
 
-export function getAllPostData(postIdentifier: string): PostData {
-  const postSlug = postIdentifier.replace(/\.md$/, '');
-  const filePath = path.join(postsDirectory, `${postSlug}.md`);
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  const { data, content } = matter(fileContent);
-  const series = path.dirname(postSlug);
-
-  const postData: PostData = {
-    slug: path.basename(postSlug),
-    series: series === '.' ? undefined : series,
-    title: data.title,
-    date: data.date,
-    content: content,
-    isFeatured: data.isFeatured || false,
-    isDraft: data.isDraft || false,
-    tags: data?.tags.map((tag: string) => ({ name: tag, count: 1 })),
-  };
-
-  return postData;
+async function fetchFiles(path: string): Promise<GitHubFile[]> {
+  return await fetchFromGitHub(path);
 }
 
-export function getPostsGroupedBySeries(): { seriesName: string; posts: PostData[] }[] {
-  const postFiles = getPostsFiles();
+async function fetchAllMdFiles(path: string): Promise<GitHubFile[]> {
+  const files = await fetchFiles(path);
+  const mdFiles: GitHubFile[] = [];
 
-  const allPosts = postFiles.map(getAllPostData);
-  const sortedPosts = allPosts.sort((postA: PostData, postB: PostData) => new Date(postB.date).getTime() - new Date(postA.date).getTime());
-  const draftPosts = sortedPosts.filter((post) => process.env.NODE_ENV === 'development' || !post.isDraft);
+  for (const file of files) {
+    if (file.type === 'dir') {
+      const dirFiles = await fetchAllMdFiles(file.path);
+      mdFiles.push(...dirFiles);
+    } else if (file.name.endsWith('.md')) {
+      mdFiles.push(file);
+    }
+  }
 
-  const postsGroupedBySeries = draftPosts.reduce(
-    (groupedPosts, post) => {
+  return mdFiles;
+}
+
+async function convertMdToYaml(file: GitHubFile): Promise<string> {
+  const data = await fetchFromGitHub(file.path);
+  const content = Buffer.from(data.content, 'base64').toString('utf8');
+
+  const { data: frontmatter, content: body } = matter(content);
+
+  return JSON.stringify({ frontmatter, body }, null, 2);
+}
+
+export async function getPostsFiles(): Promise<GitHubFile[]> {
+  return await fetchAllMdFiles('');
+}
+
+function groupPostsBySeries(posts: PostData[]): { [series: string]: PostData[] } {
+  return posts.reduce(
+    (groupedPosts: { [series: string]: PostData[] }, post: PostData) => {
       const series = post.series;
       if (series !== undefined) {
         if (!groupedPosts[series]) {
@@ -81,55 +87,66 @@ export function getPostsGroupedBySeries(): { seriesName: string; posts: PostData
     },
     {} as { [series: string]: PostData[] },
   );
+}
 
-  const postsGroupedBySeriesArray = Object.entries(postsGroupedBySeries).map(([seriesName, posts]) => ({
+export async function getPostsGroupedBySeries(): Promise<{ seriesName: string; posts: PostData[] }[]> {
+  const postFiles = await getPostsFiles();
+
+  const allPosts = await Promise.all(
+    postFiles.map(async (postFile) => {
+      const fileContent = await convertMdToYaml(postFile);
+      const { frontmatter, body } = JSON.parse(fileContent);
+      const series = path.basename(path.dirname(postFile.path));
+
+      return {
+        slug: path.basename(postFile.path, '.md'),
+        series: series === '.' ? undefined : series,
+        title: frontmatter.title,
+        date: frontmatter.date,
+        content: body,
+        isFeatured: frontmatter.isFeatured || false,
+        isDraft: frontmatter.isDraft || false,
+        tags: frontmatter?.tags?.map((tag: string) => ({ name: tag, count: 1 })) || [],
+      };
+    }),
+  );
+
+  const sortedPosts = allPosts.sort((postA: PostData, postB: PostData) => new Date(postB.date).getTime() - new Date(postA.date).getTime());
+  const draftPosts = sortedPosts.filter((post: PostData) => process.env.NODE_ENV === 'development' || !post.isDraft);
+
+  const postsGroupedBySeries = groupPostsBySeries(draftPosts);
+
+  return Object.entries(postsGroupedBySeries).map(([seriesName, posts]: [string, PostData[]]) => ({
     seriesName,
     posts,
   }));
-
-  return postsGroupedBySeriesArray;
 }
 
 export function getAllPostsFromSeries(series: Series[]) {
   return series.flatMap((s) => s.posts);
 }
 
-export function getPostData(slug: string[]) {
-  // slug 배열을 '/'로 연결하여 파일 경로를 생성합니다.
-  const filePath = path.join(process.cwd(), 'posts', ...slug) + '.md';
+export async function getPostData(locale: string, slug: string[]): Promise<PostData> {
+  const postIdentifier = slug.join('/');
+  const postSlug = postIdentifier.replace(/\.md$/, '');
 
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`File not found: ${filePath}`);
-  }
+  const filePath = path.join(locale, ...slug) + '.md';
 
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  const { data, content } = matter(fileContent);
+  const data = await fetchFromGitHub(filePath);
+  const content = Buffer.from(data.content, 'base64').toString('utf8');
 
-  return {
-    slug,
-    content,
-    ...data,
+  const { data: frontmatter, content: body } = matter(content);
+
+  const postData: PostData = {
+    slug: path.basename(postSlug),
+    series: path.dirname(postSlug),
+    title: frontmatter.title,
+    date: frontmatter.date,
+    content: body,
+    isFeatured: frontmatter.isFeatured || false,
+    isDraft: frontmatter.isDraft || false,
+    tags: frontmatter?.tags?.map((tag: string) => ({ name: tag, count: 1 })) || [],
   };
+
+  return postData;
 }
-
-// export function getAllTags(): PostData['tags'] {
-//   const allPosts = getAllPosts();
-
-//   const allTags = allPosts.flatMap((post) => post.tags.map((tag) => tag.name));
-
-//   // 태그의 빈도를 계산합니다.
-//   const tagFrequency: { [tag: string]: number } = {};
-//   allTags.forEach((tag) => {
-//     if (tag in tagFrequency) {
-//       tagFrequency[tag]++;
-//     } else {
-//       tagFrequency[tag] = 1;
-//     }
-//   });
-
-//   // 빈도에 따라 태그를 정렬합니다.
-//   const sortedTags = Object.keys(tagFrequency).sort((a, b) => tagFrequency[b] - tagFrequency[a]);
-
-//   // 각 태그를 Tag 객체로 변환합니다.
-//   return sortedTags.map((tag) => ({ name: tag, count: tagFrequency[tag] }));
-// }
