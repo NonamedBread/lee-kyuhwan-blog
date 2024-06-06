@@ -46,5 +46,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       series: allSeries,
     },
+    revalidate: 10 * 1000, // 10 seconds
   };
 };
