@@ -30,6 +30,10 @@ interface GitHubFile {
 }
 
 async function fetchFromGitHub(path: string): Promise<any> {
+  if (!owner || !repo || !token) {
+    throw new Error('GitHub environment variables are not set');
+  }
+
   const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
     headers: {
       Accept: 'application/vnd.github+json',
